@@ -1,0 +1,404 @@
+[    
+    {
+        "name": "Llama 3.2 Instruct 1B",
+        "models": [
+            {
+                "url": "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q5_K_M.gguf?download=true",
+                "file_name": "Llama-3.2-1B-Instruct-Q5_K_M.gguf",
+                "size": "",
+                "Q": "Q5_K_M"
+            },
+            {
+                "url": "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q8_0.gguf?download=true",
+                "file_name": "Llama-3.2-1B-Instruct-Q8_0.gguf",
+                "size": "",
+                "Q": "Q8_0"
+            },
+            {
+                "url": "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_S.gguf?download=true",
+                "file_name": "Llama-3.2-1B-Instruct-Q4_K_S.gguf",
+                "size": "",
+                "Q": "Q4_K_S"
+            },
+            {
+                "url": "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-IQ3_M.gguf?download=true",
+                "file_name": "Llama-3.2-1B-Instruct-IQ3_M.gguf",
+                "size": "",
+                "Q": "IQ3_M"
+            }
+        ]
+    }, 
+    {
+        "name": "Gemma v2 2B",
+        "models": [
+            {
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma%202b_it_v2_Q5_K_S.gguf",
+                "file_name": "gemma_2b_it_v2_Q5_K_S.gguf",
+                "size": "",
+                "Q": "Q5_K_S"
+            },
+            {
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma%202b_it_v2_IQ4_NL.gguf",
+                "file_name": "gemma_2b_it_v2_IQ4_NL.gguf",
+                "size": "",
+                "Q": "IQ4_NL"
+            },            
+            {
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma%202b_it_v2_Q6_K.gguf",
+                "file_name": "gemma_2b_it_v2_Q6_K.gguf",
+                "size": "",
+                "Q": "Q6_K"
+            },
+            {
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma%202b_it_v2_IQ3_XS.gguf?download=true",
+                "file_name": "gemma_2b_it_v2_IQ3_XS.gguf",
+                "size": "",
+                "Q": "IQ3_XS"
+            }
+        ]
+    },
+    {
+        "name": "Gemma 1.1 2B",
+        "models": [
+            {
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma-2b-it-Q5_K_M.gguf?download=true",
+                "file_name": "gemma-2b-it-Q5_K_M.gguf",
+                "size": "",
+                "Q": "Q5_K_M"
+            },
+            {
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma-2b-it.Q8_0.gguf?download=true",
+                "file_name": "gemma-2b-it.Q8_0.gguf",
+                "size": "",
+                "Q": "Q8_0"
+            },
+            {
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma-2b-it-IQ4_NL.gguf?download=true",
+                "file_name": "gemma-2b-it-IQ4_NL.gguf",
+                "size": "",
+                "Q": "IQ4_NL"
+            },
+            {
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma-2b-it-IQ3_S.gguf?download=true",
+                "file_name": "gemma-2b-it-IQ3_S.gguf",
+                "size": "",
+                "Q": "IQ3_S"
+            }
+        ]
+    },       
+    {
+        "name": "Llama 3.2 Instruct 3B",
+        "models": [
+            {
+                "url": "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_S.gguf?download=true",
+                "file_name": "Llama-3.2-3B-Instruct-Q4_K_S.gguf",
+                "size": "",
+                "Q": "Q4_K_S"
+            },
+            {
+                "url": "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf?download=true",
+                "file_name": "Llama-3.2-3B-Instruct-Q4_K_M.gguf",
+                "size": "",
+                "Q": "Q4_K_M"
+            },
+            {
+                "url": "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q5_K_M.gguf?download=true",
+                "file_name": "Llama-3.2-3B-Instruct-Q5_K_M.gguf",
+                "size": "",
+                "Q": "Q5_K_M"
+            },
+            {
+                "url": "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-IQ3_M.gguf?download=true",
+                "file_name": "Llama-3.2-3B-Instruct-IQ3_M.gguf",
+                "size": "",
+                "Q": "IQ3_M"
+            }
+        ]
+    }, 
+    {
+        "name": "Phi-3.5-mini-instruct",
+        "models": [
+            {
+                "file_name": "Phi-3.5-mini-instruct-Q4_K_S.gguf",
+                "url": "https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-Q4_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q4_K_S"
+            },
+            {
+                "url": "https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-IQ3_M.gguf?download=true",
+                "file_name": "Phi-3.5-mini-instruct-IQ3_M.gguf",
+                "size": "",
+                "Q": "IQ3_M"
+            },
+            {
+                "url": "https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-Q5_K_M.gguf?download=true",
+                "file_name": "Phi-3.5-mini-instruct-Q5_K_M.gguf",
+                "size": "",
+                "Q": "Q5_K_M"
+            }
+        ]
+    },
+    {
+        "name": "Phi 3 mini 128k instruct",
+        "models": [
+            {
+                "file_name": "Phi-3-mini-128k-instruct.Q4_K_S.gguf",
+                "url": "https://huggingface.co/PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/resolve/main/Phi-3-mini-128k-instruct.Q4_K_S.gguf?download=true",
+                "size": "1.48",
+                "Q": "Q4_K_S"
+            },            
+            {
+                "url": "https://huggingface.co/PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/resolve/main/Phi-3-mini-128k-instruct.Q5_K_M.gguf?download=true",
+                "file_name": "Phi-3-mini-128k-instruct.Q5_K_M.gguf",
+                "size": "",
+                "Q": "Q5_K_M"
+            },
+            {
+                "url": "https://huggingface.co/PrunaAI/Phi-3-mini-128k-instruct-GGUF-Imatrix-smashed/resolve/main/Phi-3-mini-128k-instruct.IQ3_S.gguf?download=true",
+                "file_name": "Phi-3-mini-128k-instruct.IQ3_S.gguf",
+                "size": "",
+                "Q": "IQ3_S"
+            }
+        ]
+    },
+    {
+        "name": "Phi 2 2.7B",
+        "models": [
+            {
+                "file_name": "phi-2.Q4_K_M.gguf",
+                "url": "https://huggingface.co/TheBloke/phi-2-GGUF/resolve/main/phi-2.Q4_K_M.gguf?download=true",
+                "size": "1.48",
+                "Q": "Q4_K_M"
+            },
+            {
+                "url": "https://huggingface.co/ggml-org/models/resolve/main/phi-2/ggml-model-q8_0.gguf?download=true",
+                "file_name": "phi-2-q8_0.gguf",
+                "size": "",
+                "Q": "Q8_0"
+            }
+        ]
+    },
+    {
+        "name": "Bunny 1.0 4B",
+        "models": [
+            {
+                "file_name": "Bunny-v1_0-4B-Q3_K_M.gguf",
+                "url": "https://huggingface.co/guinmoon/Bunny-v1_0-4B-GGUF/resolve/main/Bunny-v1_0-4B-Q3_K_M.gguf?download=true",
+                "size": "",
+                "Q": "Q3_K_M"
+            },
+            {
+                "file_name": "Bunny-v1_0-4B-Q4_K_S.gguf",
+                "url": "https://huggingface.co/guinmoon/Bunny-v1_0-4B-GGUF/resolve/main/Bunny-v1_0-4B-Q4_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q4_K_S"
+            },
+            {
+                "file_name": "Bunny-v1_0-4B-IQ3_XXS.gguf",
+                "url": "https://huggingface.co/guinmoon/Bunny-v1_0-4B-GGUF/resolve/main/Bunny-v1_0-4B-IQ3_XXS.gguf?download=true",
+                "size": "",
+                "Q": "IQ3_XXS"
+            },
+            {
+                "file_name": "Bunny-v1_0-4B-Q5_K_S.gguf",
+                "url": "https://huggingface.co/guinmoon/Bunny-v1_0-4B-GGUF/resolve/main/Bunny-v1_0-4B-Q5_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q5_K_S"
+            },
+            {
+                "file_name": "Bunny-v1.0-4B-mmproj-f16.gguf",
+                "url": "https://huggingface.co/guinmoon/Bunny-v1_0-4B-GGUF/resolve/main/Bunny-v1.0-4B-mmproj-f16.gguf?download=true",
+                "size": "",
+                "Q": "CLIP"
+            }
+        ]
+    },  
+    {
+        "name": "MobileVLM 1.7B",
+        "models": [
+            {
+                "file_name": "MobileVLM-1.7B-Q5_K.gguf",
+                "url": "https://huggingface.co/guinmoon/MobileVLM-1.7B-GGUF/resolve/main/MobileVLM-1.7B-Q5_K.gguf?download=true",
+                "size": "",
+                "Q": "Q5_K"
+            },
+            {
+                "file_name": "MobileVLM-1.7B-Q6_K.gguf",
+                "url": "https://huggingface.co/guinmoon/MobileVLM-1.7B-GGUF/resolve/main/MobileVLM-1.7B-Q6_K.gguf?download=true",
+                "size": "",
+                "Q": "Q6_K"
+            },
+            {
+                "file_name": "MobileVLM-1.7B-Q4_K.gguf",
+                "url": "https://huggingface.co/guinmoon/MobileVLM-1.7B-GGUF/resolve/main/MobileVLM-1.7B-Q4_K.gguf?download=true",
+                "size": "",
+                "Q": "Q4_K"
+            },
+            {
+                "file_name": "MobileVLM-1.7B-mmproj-f16.gguf",
+                "url": "https://huggingface.co/guinmoon/MobileVLM-1.7B-GGUF/resolve/main/MobileVLM-1.7B-mmproj-f16.gguf?download=true",
+                "size": "",
+                "Q": "CLIP"
+            }
+        ]
+    },    
+    {
+        "name": "MobileVLM 3B",
+        "models": [
+            {
+                "file_name": "MobileVLM-3B-q3_K_S.gguf",
+                "url": "https://huggingface.co/guinmoon/MobileVLM-3B-GGUF/resolve/main/MobileVLM-3B-q3_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q3_K_S"
+            },
+            {
+                "file_name": "MobileVLM-3B-Q4_K_M.gguf",
+                "url": "https://huggingface.co/guinmoon/MobileVLM-3B-GGUF/resolve/main/MobileVLM-3B-Q4_K_M.gguf?download=true",
+                "size": "",
+                "Q": "Q4_K_M"
+            },
+            {
+                "file_name": "MobileVLM-3B-Q5_K_S.gguf",
+                "url": "https://huggingface.co/guinmoon/MobileVLM-3B-GGUF/resolve/main/MobileVLM-3B-q5_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q5_K_S"
+            },
+            {
+                "file_name": "MobileVLM-3B-mmproj-f16.gguf",
+                "url": "https://huggingface.co/guinmoon/MobileVLM-3B-GGUF/resolve/main/MobileVLM-3B-mmproj-f16.gguf?download=true",
+                "size": "",
+                "Q": "CLIP"
+            }
+        ]
+    },    
+    {
+        "name": "ORCA mini 3B",
+        "models": [
+            {
+                "file_name": "orca-mini-3b-q4_1.gguf",
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/orca-mini-3b-q4_1.gguf?download=true",
+                "size": "",
+                "Q": "Q4_1"
+            },
+            {
+                "file_name": "orca-mini-3b-q5_0.gguf",
+                "url": "https://huggingface.co/Aryanne/Orca-Mini-3B-gguf/resolve/main/q5_0-orca-mini-3b.gguf?download=true",
+                "size": "",
+                "Q": "Q5_0"
+            }
+        ]
+    },
+    
+    {
+        "name": "Marx 3B V3",
+        "models": [
+            {
+                "file_name": "marx-3b-v3.Q4_K_M.gguf",
+                "url": "https://huggingface.co/TheBloke/Marx-3B-v3-GGUF/resolve/main/marx-3b-v3.Q4_K_M.gguf",
+                "size": "",
+                "Q": "Q4_K_M"
+            },
+            {
+                "file_name": "marx-3b-v3.Q3_K_S.gguf",
+                "url": "https://huggingface.co/TheBloke/Marx-3B-v3-GGUF/resolve/main/marx-3b-v3.Q3_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q3_K_S"
+            },
+            {
+                "file_name": "marx-3b-v3.Q8_0.gguf",
+                "url": "https://huggingface.co/TheBloke/Marx-3B-v3-GGUF/resolve/main/marx-3b-v3.Q8_0.gguf?download=true",
+                "size": "",
+                "Q": "Q8_0"
+            }
+        ]
+    },
+    {
+        "name": "StableLM 3B 4E1T",
+        "models": [
+            {
+                "file_name": "stablelm-3b-4e1t-Q4_K_M.gguf",
+                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/stablelm-3b-4e1t-Q4_K_M.gguf?download=true",
+                "size": "",
+                "Q": "Q4_K_M"
+                
+            },
+            {
+                "file_name": "stablelm-3b-4e1t-Q3_K_S.gguf",
+                "url": "https://huggingface.co/maddes8cht/stabilityai-stablelm-3b-4e1t-gguf/resolve/main/stabilityai-stablelm-3b-4e1t-Q3_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q3_K_S"
+            },
+            {
+                "file_name": "stablelm-3b-4e1t-Q8_0.gguf",
+                "url": "https://huggingface.co/maddes8cht/stabilityai-stablelm-3b-4e1t-gguf/resolve/main/stabilityai-stablelm-3b-4e1t-Q8_0.gguf?download=true",
+                "size": "",
+                "Q": "Q8_0"
+            }
+            
+            
+        ]
+    },
+    {
+        "name": "Mistral-7B-v0.1",
+        "models": [
+            {
+                "file_name": "mistral-7b-v0.1.Q3_K_S.gguf",
+                "url": "https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF/resolve/main/mistral-7b-v0.1.Q3_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q3_K_S"
+            },
+            {
+                "file_name": "mistral-7b-v0.1.Q2_K.gguf",
+                "url": "https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF/resolve/main/mistral-7b-v0.1.Q2_K.gguf?download=true",
+                "size": "",
+                "Q": "Q2_K"
+            },
+            {
+                "file_name": "mistral-7b-v0.1.Q4_K_S.gguf",
+                "url": "https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF/resolve/main/mistral-7b-v0.1.Q4_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q4_K_S"
+            }
+        ]
+    },
+    {
+        "name": "OpenHermes-2.5-Mistral 7B",
+        "models": [
+            {
+                "file_name": "openhermes-2.5-mistral-7b.Q2_K.gguf",
+                "url": "https://huggingface.co/TheBloke/OpenHermes-2.5-Mistral-7B-GGUF/resolve/main/openhermes-2.5-mistral-7b.Q2_K.gguf?download=true",
+                "size": "",
+                "Q": "Q2_K"
+            },
+            {
+                "file_name": "openhermes-2.5-mistral-7b.Q3_K_S.gguf",
+                "url": "https://huggingface.co/TheBloke/OpenHermes-2.5-Mistral-7B-GGUF/resolve/main/openhermes-2.5-mistral-7b.Q3_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q3_K_S"
+            },
+            {
+                "file_name": "openhermes-2.5-mistral-7b.Q4_K_S.gguf",
+                "url": "https://huggingface.co/TheBloke/OpenHermes-2.5-Mistral-7B-GGUF/resolve/main/openhermes-2.5-mistral-7b.Q4_K_S.gguf?download=true",
+                "size": "",
+                "Q": "Q4_K_S"
+            }
+        ]
+    },
+    {
+        "name": "TinyLlama 1B",
+        "models": [
+            {
+                "file_name": "tinyllama-1.1b-chat-v1.0.Q8_0.gguf",
+                "url": "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q8_0.gguf?download=true",
+                "size": "",
+                "Q": "Q8_0"
+            },
+            {
+                "file_name": "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf",
+                "url": "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf?download=true",
+                "size": "",
+                "Q": "Q4_K_M"
+            }            
+        ]
+    }    
+]
