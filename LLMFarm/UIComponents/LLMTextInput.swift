@@ -1,6 +1,6 @@
 //
 //  LLMTextInput.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 17.01.2024.
 //

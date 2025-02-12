@@ -1,6 +1,6 @@
 //
 //  BottomPanel.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 20.05.2023.
 //

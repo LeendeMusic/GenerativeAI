@@ -32,25 +32,25 @@
         "name": "Gemma v2 2B",
         "models": [
             {
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma%202b_it_v2_Q5_K_S.gguf",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/gemma%202b_it_v2_Q5_K_S.gguf",
                 "file_name": "gemma_2b_it_v2_Q5_K_S.gguf",
                 "size": "",
                 "Q": "Q5_K_S"
             },
             {
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma%202b_it_v2_IQ4_NL.gguf",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/gemma%202b_it_v2_IQ4_NL.gguf",
                 "file_name": "gemma_2b_it_v2_IQ4_NL.gguf",
                 "size": "",
                 "Q": "IQ4_NL"
             },            
             {
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma%202b_it_v2_Q6_K.gguf",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/gemma%202b_it_v2_Q6_K.gguf",
                 "file_name": "gemma_2b_it_v2_Q6_K.gguf",
                 "size": "",
                 "Q": "Q6_K"
             },
             {
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma%202b_it_v2_IQ3_XS.gguf?download=true",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/gemma%202b_it_v2_IQ3_XS.gguf?download=true",
                 "file_name": "gemma_2b_it_v2_IQ3_XS.gguf",
                 "size": "",
                 "Q": "IQ3_XS"
@@ -61,25 +61,25 @@
         "name": "Gemma 1.1 2B",
         "models": [
             {
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma-2b-it-Q5_K_M.gguf?download=true",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/gemma-2b-it-Q5_K_M.gguf?download=true",
                 "file_name": "gemma-2b-it-Q5_K_M.gguf",
                 "size": "",
                 "Q": "Q5_K_M"
             },
             {
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma-2b-it.Q8_0.gguf?download=true",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/gemma-2b-it.Q8_0.gguf?download=true",
                 "file_name": "gemma-2b-it.Q8_0.gguf",
                 "size": "",
                 "Q": "Q8_0"
             },
             {
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma-2b-it-IQ4_NL.gguf?download=true",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/gemma-2b-it-IQ4_NL.gguf?download=true",
                 "file_name": "gemma-2b-it-IQ4_NL.gguf",
                 "size": "",
                 "Q": "IQ4_NL"
             },
             {
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/gemma-2b-it-IQ3_S.gguf?download=true",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/gemma-2b-it-IQ3_S.gguf?download=true",
                 "file_name": "gemma-2b-it-IQ3_S.gguf",
                 "size": "",
                 "Q": "IQ3_S"
@@ -276,7 +276,7 @@
         "models": [
             {
                 "file_name": "orca-mini-3b-q4_1.gguf",
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/orca-mini-3b-q4_1.gguf?download=true",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/orca-mini-3b-q4_1.gguf?download=true",
                 "size": "",
                 "Q": "Q4_1"
             },
@@ -317,7 +317,7 @@
         "models": [
             {
                 "file_name": "stablelm-3b-4e1t-Q4_K_M.gguf",
-                "url": "https://huggingface.co/guinmoon/LLMFarm_Models/resolve/main/stablelm-3b-4e1t-Q4_K_M.gguf?download=true",
+                "url": "https://huggingface.co/guinmoon/LocalMind_Models/resolve/main/stablelm-3b-4e1t-Q4_K_M.gguf?download=true",
                 "size": "",
                 "Q": "Q4_K_M"
                 

@@ -1,6 +1,6 @@
 //
 //  DownloadManager.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 08.09.2023.
 //
@@ -192,7 +192,7 @@ final class DownloadManager: NSObject, ObservableObject, URLSessionDownloadDeleg
         lastBytesWritten = 0
         lastSpeedUpdateTime = Date()
         
-        let config = URLSessionConfiguration.background(withIdentifier: "com.llmfarm.modeldownload")
+        let config = URLSessionConfiguration.background(withIdentifier: "com.LocalMind.modeldownload")
         config.sessionSendsLaunchEvents = true
         config.isDiscretionary = false
         

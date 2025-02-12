@@ -1,6 +1,6 @@
 //
 //  About.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 20.10.2024.
 //
@@ -23,7 +23,7 @@ struct About: View {
                 }
                 .buttonStyle(.borderless)
                 .controlSize(.large)
-                Text("LLMFarm v\(app_version)\nAuthor Artem Savkin\n2024")
+                Text("LocalMind v\(app_version)\nAuthor Artem Savkin\n2024")
                     .font(.footnote)
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
@@ -31,7 +31,7 @@ struct About: View {
             GroupBox(label:
                         Text("Help")
             ) {
-                Link("Visit LLM Farm documentation site", destination: URL(string: "https://llmfarm.tech/docs/FAQ")!)
+                Link("Visit LLM Farm documentation site", destination: URL(string: "https://LocalMind.tech/docs/FAQ")!)
                     .font(.title3)
                     .padding()
                 //                .foregroundStyle(.)

@@ -58,7 +58,7 @@ final class FineTuneModel: ObservableObject {
     @Published  var progress = 0.0
     public  var llama_finetune:LLaMa_FineTune? = nil
     
-    var tuneQueue = DispatchQueue(label: "LLMFarm-Tune", qos: .userInitiated, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+    var tuneQueue = DispatchQueue(label: "LocalMind-Tune", qos: .userInitiated, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
     
     public func finetune() async {
         Task{

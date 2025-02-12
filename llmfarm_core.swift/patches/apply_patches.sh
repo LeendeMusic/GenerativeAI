@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Apply LLMFarm patches
+#Apply LocalMind patches
 patch ../Sources/llmfarm_core_cpp/llama.cpp/ggml/include/ggml.h < ggml.h.patch # ok
 echo ggml.h patch appied
 patch ../Sources/llmfarm_core_cpp/llama.cpp/ggml/src/ggml.c < ggml.c.patch # ok

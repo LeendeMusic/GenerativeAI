@@ -1,6 +1,6 @@
 //
 //  ModelSettingsTemplate.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 17.07.2023.
 //

@@ -1,6 +1,6 @@
 //
 //  OneShortQuery.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 18.11.2024.
 //

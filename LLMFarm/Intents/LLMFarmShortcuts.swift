@@ -1,7 +1,7 @@
 import SwiftUI
 import AppIntents
 
-struct LLMFarmShortcutsProvider: AppShortcutsProvider {
+struct LocalMindShortcutsProvider: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         AppShortcut(
             intent: LLMQueryIntent(),

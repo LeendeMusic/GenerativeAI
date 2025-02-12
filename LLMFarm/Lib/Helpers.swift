@@ -1,6 +1,6 @@
 //
 //  FileHelper.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 21.05.2023.
 //

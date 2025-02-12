@@ -16,7 +16,7 @@ import llmfarm_core_cpp
 import UIKit
 
 // LLaMaClip.ImageUploadのインポートを削除
-// @_implementationOnly import LLMFarm.ImageUpload
+// @_implementationOnly import LocalMind.ImageUpload
 
 private extension Duration {
     var seconds: Double {
@@ -424,7 +424,7 @@ final class AIChatModel: ObservableObject {
                                      attachment: String? = nil,
                                      attachment_type: String? = nil)  {
         
-        let aiQueue = DispatchQueue(label: "LLMFarm-RAG", qos: .userInitiated, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+        let aiQueue = DispatchQueue(label: "LocalMind-RAG", qos: .userInitiated, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
         
         
         aiQueue.async {

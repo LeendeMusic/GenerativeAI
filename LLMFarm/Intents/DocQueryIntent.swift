@@ -1,6 +1,6 @@
 //
 //  SummaryIntent.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 16.10.2024.
 //

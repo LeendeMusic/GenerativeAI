@@ -10,7 +10,7 @@ public let default_thread_count:Int32 = Int32(ProcessInfo.processInfo.processorC
 
 public class FineTune {
 
-    public var tuneQueue = DispatchQueue(label: "LLMFarm-Tune", qos: .userInitiated, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
+    public var tuneQueue = DispatchQueue(label: "LocalMind-Tune", qos: .userInitiated, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil)
     
     public var model_base: String = ""
     public var lora_out: String = ""
@@ -26,7 +26,7 @@ public class FineTune {
     @Published var tune_log: [String] = []
     public var cancel: Bool = false
 
-    // let args = ["progr", "--model-base", "/Users/guinmoon/dev/alpaca_llama_etc/openllama-3b-v2-q8_0.gguf", "--lora-out", "/Users/guinmoon/dev/alpaca_llama_etc/lora-open-llama-3b-v2-q8_0-shakespeare-LLMFarm.bin", "--train-data", "/Users/guinmoon/dev/alpaca_llama_etc/pdf/shakespeare.txt",
+    // let args = ["progr", "--model-base", "/Users/guinmoon/dev/alpaca_llama_etc/openllama-3b-v2-q8_0.gguf", "--lora-out", "/Users/guinmoon/dev/alpaca_llama_etc/lora-open-llama-3b-v2-q8_0-shakespeare-LocalMind.bin", "--train-data", "/Users/guinmoon/dev/alpaca_llama_etc/pdf/shakespeare.txt",
     //         "--threads", "12", "--adam-iter", "30", "--batch", "4", "--ctx", "64", "--use-checkpointing"]
     
     public  init(_ model_base: String, _ lora_out: String,_ train_data:String, 

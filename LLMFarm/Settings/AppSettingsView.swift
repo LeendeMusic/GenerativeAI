@@ -1,6 +1,6 @@
 //
 //  SettingsView.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 01.11.2023.
 //

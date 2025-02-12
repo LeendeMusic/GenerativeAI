@@ -1,6 +1,6 @@
 //
 //  Orientation_helper.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 03.07.2023.
 //

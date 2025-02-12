@@ -1,6 +1,6 @@
 //
 //  RagSettingsView.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 20.10.2024.
 //

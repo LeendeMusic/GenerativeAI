@@ -1,6 +1,6 @@
 //
 //  ShortcutsChatEntity.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 12.05.2024.
 //

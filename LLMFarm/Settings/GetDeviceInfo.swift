@@ -1,6 +1,6 @@
 //
 //  GetDeviceInfo.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 30.08.2023.
 //

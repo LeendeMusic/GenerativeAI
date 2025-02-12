@@ -1,6 +1,6 @@
 //
 //  log_helper.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 02.09.2023.
 //

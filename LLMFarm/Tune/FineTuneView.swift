@@ -1,6 +1,6 @@
 //
 //  FineTuneView.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 05.11.2023.
 //

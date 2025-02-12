@@ -1,6 +1,6 @@
 //
 //  ThreeDots.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 26.10.2024.
 //

@@ -1,6 +1,6 @@
 //
-//  LLMFarmApp.swift
-//  LLMFarm
+//  LocalMindApp.swift
+//  LocalMind
 //
 //  Created by guinmoon on 20.05.2023.
 //
@@ -12,7 +12,7 @@ import Darwin
 
 
 @main
-struct LLMFarmApp: App {
+struct LocalMindApp: App {
     @State var add_chat_dialog = false
     @State var edit_chat_dialog = false
     @State var current_detail_view_name:String? = "Chat"

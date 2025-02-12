@@ -1,6 +1,6 @@
 //
 //  Extensions.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 04.12.2023.
 //

@@ -1,6 +1,6 @@
 //
 //  ChatSettingsView.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 18.10.2024.
 //

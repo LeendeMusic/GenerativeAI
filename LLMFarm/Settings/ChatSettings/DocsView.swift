@@ -1,6 +1,6 @@
 //
 //  DocsView.swift
-//  LLMFarm
+//  LocalMind
 //
 //  Created by guinmoon on 19.10.2024.
 //
