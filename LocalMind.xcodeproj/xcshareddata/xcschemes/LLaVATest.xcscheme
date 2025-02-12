@@ -17,7 +17,7 @@
                BlueprintIdentifier = "15C08A5B2B9DF6D1000A1BE0"
                BuildableName = "LLaVATest"
                BlueprintName = "LLaVATest"
-               ReferencedContainer = "container:LocalMind2.xcodeproj">
+               ReferencedContainer = "container:LocalMind.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -61,7 +61,7 @@
             BlueprintIdentifier = "15C08A5B2B9DF6D1000A1BE0"
             BuildableName = "LLaVATest"
             BlueprintName = "LLaVATest"
-            ReferencedContainer = "container:LocalMind2.xcodeproj">
+            ReferencedContainer = "container:LocalMind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "15C08A5B2B9DF6D1000A1BE0"
             BuildableName = "LLaVATest"
             BlueprintName = "LLaVATest"
-            ReferencedContainer = "container:LocalMind2.xcodeproj">
+            ReferencedContainer = "container:LocalMind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
