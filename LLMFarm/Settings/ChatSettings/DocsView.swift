@@ -61,7 +61,44 @@ struct DocsView: View {
     @Binding private var comparisonAlgorithm: SimilarityMetricType 
     @Binding private var chunkMethod: TextSplitterType 
 
-    var targetExts = [".pdf",".txt"]
+    // サポートするファイル形式を定義
+    private let targetExts = [
+        // テキストファイル
+        ".txt", ".md", ".rtf",
+        // ドキュメント
+        ".pdf", ".doc", ".docx",
+        // プレゼンテーション
+        ".ppt", ".pptx",
+        // スプレッドシート
+        ".csv", ".xls", ".xlsx",
+        // その他
+        ".json", ".xml"
+    ]
+    
+    // ファイルタイプに応じたアイコンを返す
+    private func getFileIcon(_ ext: String) -> String {
+        switch ext.lowercased() {
+        case ".txt", ".md", ".rtf":
+            return "doc.text"
+        case ".pdf":
+            return "doc.pdf"
+        case ".doc", ".docx":
+            return "doc.word"
+        case ".ppt", ".pptx":
+            return "doc.ppt"
+        case ".csv", ".xls", ".xlsx":
+            return "doc.excel"
+        case ".json", ".xml":
+            return "doc.code"
+        default:
+            return "doc"
+        }
+    }
+    
+    // ファイルサイズのフォーマット
+    private func formatFileSize(_ size: Int64) -> String {
+        ByteCountFormatter.string(fromByteCount: size, countStyle: .file)
+    }
     
     init (  docsDir:String,
             ragDir:String,
@@ -134,34 +171,72 @@ struct DocsView: View {
                 //                .controlSize(.large)
                 .fileImporter(
                     isPresented: $isImporting,
-                    //                            allowedContentTypes: [bin_type!,gguf_type!],
-                    allowedContentTypes: [.data],
-                    allowsMultipleSelection: false
+                    allowedContentTypes: [.data, .directory],
+                    allowsMultipleSelection: true
                 ) { result in
-                    Task{
+                    Task {
                         do {
-                            guard let selectedFile: URL = try result.get().first else { return }
+                            let selectedFiles = try result.get()
                             importStatus = ""
                             isIndexUpdatePopoverPresented = true
-                            importStatus = "Copying \(selectedFile.lastPathComponent) to chat documents"
-                            docFileName = selectedFile.lastPathComponent
-                            docFileUrl = selectedFile
-                            docFilePath = selectedFile.lastPathComponent
-                            _ = CopyFileToSandbox(url: docFileUrl,dest:dir)
-                            modelImported = true
-                            addButtonIcon = "checkmark"
-                            delayIconChange()
-                            importStatus = "Adding \(selectedFile.lastPathComponent) to chat Similarity Index"
-                            docsPreviews = getFileListByExts(dir:dir,exts:targetExts) ?? []
-                            await addFileToIndex(fileURL: docFileUrl, ragURL: ragUrl,
-                                                currentModel: currentModel,
-                                                comparisonAlgorithm: comparisonAlgorithm,
-                                                chunkMethod: chunkMethod)
-                            importStatus = "Import \(selectedFile.lastPathComponent) done."
+                            var importedCount = 0
+                            
+                            for selectedFile in selectedFiles {
+                                let isDirectory = try selectedFile.resourceValues(forKeys: [.isDirectoryKey]).isDirectory ?? false
+                                
+                                if isDirectory {
+                                    importStatus = "インポート中: \(selectedFile.lastPathComponent)内のファイル"
+                                    let fileManager = FileManager.default
+                                    let files = try fileManager.contentsOfDirectory(at: selectedFile, includingPropertiesForKeys: nil)
+                                    
+                                    for file in files {
+                                        let ext = "." + file.pathExtension.lowercased()
+                                        if targetExts.contains(where: { $0.lowercased() == ext }) {
+                                            importStatus = "コピー中: \(file.lastPathComponent)"
+                                            _ = CopyFileToSandbox(url: file, dest: dir)
+                                            
+                                            importStatus = "インデックス追加中: \(file.lastPathComponent)"
+                                            await addFileToIndex(fileURL: file, 
+                                                              ragURL: ragUrl,
+                                                              currentModel: currentModel,
+                                                              comparisonAlgorithm: comparisonAlgorithm,
+                                                              chunkMethod: chunkMethod)
+                                            importedCount += 1
+                                        }
+                                    }
+                                } else {
+                                    let ext = "." + selectedFile.pathExtension.lowercased()
+                                    if targetExts.contains(where: { $0.lowercased() == ext }) {
+                                        importStatus = "コピー中: \(selectedFile.lastPathComponent)"
+                                        _ = CopyFileToSandbox(url: selectedFile, dest: dir)
+                                        
+                                        importStatus = "インデックス追加中: \(selectedFile.lastPathComponent)"
+                                        await addFileToIndex(fileURL: selectedFile, 
+                                                          ragURL: ragUrl,
+                                                          currentModel: currentModel,
+                                                          comparisonAlgorithm: comparisonAlgorithm,
+                                                          chunkMethod: chunkMethod)
+                                        importedCount += 1
+                                    } else {
+                                        importStatus = "サポートされていない形式: \(selectedFile.lastPathComponent)"
+                                        try await Task.sleep(nanoseconds: 1_500_000_000) // 1.5秒待機
+                                        continue
+                                    }
+                                }
+                            }
+                            
+                            if importedCount > 0 {
+                                modelImported = true
+                                addButtonIcon = "checkmark"
+                                delayIconChange()
+                                docsPreviews = getFileListByExts(dir: dir, exts: targetExts) ?? []
+                                importStatus = "インポート完了"
+                                try await Task.sleep(nanoseconds: 1_000_000_000) // 1秒待機
+                            }
+                            
                             isIndexUpdatePopoverPresented = false
                             
                         } catch {
-                            // Handle failure.
                             print("Unable to read file contents")
                             print(error.localizedDescription)
                         }
@@ -172,12 +247,12 @@ struct DocsView: View {
 //                VStack(spacing: 5){
                     List(selection: $docSelection){
                         ForEach(docsPreviews, id: \.self) { model in
-                            
                             ModelInfoItem(
                                 modelIcon: String(describing: model["icon"]!),
-                                file_name:  String(describing: model["file_name"]!),
-                                orig_file_name:String(describing: model["file_name"]!),
-                                description: String(describing: model["description"]!)
+                                file_name: String(describing: model["file_name"]!),
+                                orig_file_name: String(describing: model["file_name"]!),
+                                size: String(describing: model["size"]!),
+                                date: String(describing: model["date"]!)
                             ).contextMenu {
                                 Button(action: {
                                     delete(at: model)

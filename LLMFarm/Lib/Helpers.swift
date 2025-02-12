@@ -425,40 +425,50 @@ public func getExtIcon(_ ext:String) -> String{
 }
 
 //get_file_list_with_options
-public func getFileListByExts(dir:String = "models", exts:[String]) -> [Dictionary<String, String>]?{
+public func getFileListByExts(dir: String = "models", exts: [String]) -> [Dictionary<String, String>]? {
     var res: [Dictionary<String, String>] = []
     do {
         let fileManager = FileManager.default
         let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
         let destinationURL = documentsPath!.appendingPathComponent(dir)
-        try fileManager.createDirectory (at: destinationURL, withIntermediateDirectories: true, attributes: nil)
-        let files = try fileManager.contentsOfDirectory(at: destinationURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles).sorted(by: {
-            let date0 = try $0.promisedItemResourceValues(forKeys:[.contentModificationDateKey]).contentModificationDate!
-            let date1 = try $1.promisedItemResourceValues(forKeys:[.contentModificationDateKey]).contentModificationDate!
-            return date0.compare(date1) == .orderedDescending
-        })
-        // let files = try fileManager.contentsOfDirectory(atPath: destinationURL.path)
-        let tmp_chat_info = ["icon":"shippingbox.fill","file_name":"[DEMO].gguf","description":""]
-        if dir == "models"{
-            res.append(tmp_chat_info)
-        }
+        try fileManager.createDirectory(at: destinationURL, withIntermediateDirectories: true, attributes: nil)
         
-        for modelfile in files {
-            for ext in exts{
-                if modelfile.lastPathComponent.hasSuffix(ext){
-                // if modelfile.hasSuffix(".bin") || modelfile.hasSuffix(".gguf"){
-                    var icon = getExtIcon(ext)                    
-                    let tmp_chat_info = ["icon":icon,"file_name":modelfile.lastPathComponent,"description":""]
-                    res.append(tmp_chat_info)
-                // }
-                }
+        // ファイルの更新日時でソート
+        let files = try fileManager.contentsOfDirectory(at: destinationURL, includingPropertiesForKeys: [.contentModificationDateKey, .fileSizeKey], options: .skipsHiddenFiles)
+            .sorted { file1, file2 in
+                let date1 = try? file1.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate
+                let date2 = try? file2.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate
+                return date1 ?? Date() > date2 ?? Date()
+            }
+        
+        for file in files {
+            let ext = file.pathExtension
+            if exts.contains(where: { $0.lowercased().hasSuffix(ext.lowercased()) }) {
+                // ファイルの属性を取得
+                let attributes = try fileManager.attributesOfItem(atPath: file.path)
+                let fileSize = attributes[.size] as? Int64 ?? 0
+                let modificationDate = attributes[.modificationDate] as? Date ?? Date()
+                
+                // 日付フォーマッター
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .short
+                dateFormatter.timeStyle = .short
+                
+                let tmp_file_info = [
+                    "icon": getExtIcon("." + ext),
+                    "file_name": file.lastPathComponent,
+                    "size": ByteCountFormatter.string(fromByteCount: fileSize, countStyle: .file),
+                    "date": dateFormatter.string(from: modificationDate),
+                    "description": ""
+                ]
+                res.append(tmp_file_info)
             }
         }
         return res
     } catch {
-        // failed to read directory – bad permissions, perhaps?
+        print("Error reading directory: \(error)")
+        return nil
     }
-    return res
 }
 
 
