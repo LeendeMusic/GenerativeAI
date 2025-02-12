@@ -42,13 +42,9 @@ struct SettingsView: View {
                         
                     case 1:
                         DownloadModelsView()
-                    case 2:
-                        About()
-                        
+
                     default:
-                        
                         ModelsView("models")
-                        
                     }
                     
                     

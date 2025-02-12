@@ -6,7 +6,7 @@ struct ModelSelector: View {
     @Binding var model_file_path: String
     @Binding var model_file_url: URL
     @Binding var model_title: String
-    @Binding var toggleSettings: Bool
+    // @Binding var toggleSettings: Bool
     @Binding var edit_chat_dialog: Bool
 
     var import_lable: String
@@ -30,7 +30,7 @@ struct ModelSelector: View {
                 if !edit_chat_dialog{
                     Button {
                         Task {
-                            toggleSettings = true
+//                            toggleSettings = true
                         }
                     } label: {
                         Label(download_lable, systemImage: "icloud.and.arrow.down")

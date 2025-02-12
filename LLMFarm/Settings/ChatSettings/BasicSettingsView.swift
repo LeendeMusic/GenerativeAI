@@ -16,11 +16,11 @@ struct BasicSettingsView: View {
     @Binding var ggjt_v3_inferences: [String]
     @Binding var model_inference: String
     @Binding var ggjt_v3_inference: String
-    @Binding var model_inference_inner: String
-    @Binding var model_settings_template: ChatSettingsTemplate
-    @Binding var model_setting_templates: [ChatSettingsTemplate]
-    @Binding var applying_template: Bool
-    var apply_setting_template: (ChatSettingsTemplate) -> Void
+    // @Binding var model_inference_inner: String
+    // @Binding var model_settings_template: ChatSettingsTemplate
+    // @Binding var model_setting_templates: [ChatSettingsTemplate]
+    // @Binding var applying_template: Bool
+    // var apply_setting_template: (ChatSettingsTemplate) -> Void
     
     
     var body: some View {
@@ -63,22 +63,22 @@ struct BasicSettingsView: View {
         }
         .padding([.top ])
         
-        HStack{
-            Text("Settings template:")
-                .frame(maxWidth: .infinity, alignment: .leading)
-            Picker("", selection: $model_settings_template) {
-                ForEach(model_setting_templates, id: \.self) { template in
-                    Text(template.template_name).tag(template)
-                }
-            }
-            .onChange(of: model_settings_template) { tmpl in
-                applying_template = true
-                apply_setting_template(model_settings_template)
-            }
-            .pickerStyle(.menu)
-        }
-        .padding(.horizontal, 5)
-        .padding(.top, 8)
+        // HStack{
+        //     Text("Settings template:")
+        //         .frame(maxWidth: .infinity, alignment: .leading)
+        //     Picker("", selection: $model_settings_template) {
+        //         ForEach(model_setting_templates, id: \.self) { template in
+        //             Text(template.template_name).tag(template)
+        //         }
+        //     }
+        //     .onChange(of: model_settings_template) { tmpl in
+        //         applying_template = true
+        //         apply_setting_template(model_settings_template)
+        //     }
+        //     .pickerStyle(.menu)
+        // }
+        // .padding(.horizontal, 5)
+        // .padding(.top, 8)
         
         // Потом надо вернуть, например для выбора между Minicpm, Bunny и т д
         // HStack{
