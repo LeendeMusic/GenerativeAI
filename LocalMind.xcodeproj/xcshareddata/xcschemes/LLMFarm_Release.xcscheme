@@ -17,7 +17,7 @@
                BlueprintIdentifier = "15F2107D2A191B190021F414"
                BuildableName = "LLMFarm.app"
                BlueprintName = "LLMFarm"
-               ReferencedContainer = "container:LLMFarm.xcodeproj">
+               ReferencedContainer = "container:LocalMind.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -60,7 +60,7 @@
             BlueprintIdentifier = "15F2107D2A191B190021F414"
             BuildableName = "LLMFarm.app"
             BlueprintName = "LLMFarm"
-            ReferencedContainer = "container:LLMFarm.xcodeproj">
+            ReferencedContainer = "container:LocalMind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "15F2107D2A191B190021F414"
             BuildableName = "LLMFarm.app"
             BlueprintName = "LLMFarm"
-            ReferencedContainer = "container:LLMFarm.xcodeproj">
+            ReferencedContainer = "container:LocalMind.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
