@@ -17,7 +17,7 @@
                BlueprintIdentifier = "15B1B9C72AF023080058F275"
                BuildableName = "FineTune_Test"
                BlueprintName = "FineTune_Test"
-               ReferencedContainer = "container:LocalMind.xcodeproj">
+               ReferencedContainer = "container:LocalMind2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -61,7 +61,7 @@
             BlueprintIdentifier = "15B1B9C72AF023080058F275"
             BuildableName = "FineTune_Test"
             BlueprintName = "FineTune_Test"
-            ReferencedContainer = "container:LocalMind.xcodeproj">
+            ReferencedContainer = "container:LocalMind2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "15B1B9C72AF023080058F275"
             BuildableName = "FineTune_Test"
             BlueprintName = "FineTune_Test"
-            ReferencedContainer = "container:LocalMind.xcodeproj">
+            ReferencedContainer = "container:LocalMind2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

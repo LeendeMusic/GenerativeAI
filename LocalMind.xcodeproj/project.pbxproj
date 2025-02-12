@@ -693,7 +693,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E624E1F92958ECC800996CD1 /* Build configuration list for PBXProject "LocalMind" */;
+			buildConfigurationList = E624E1F92958ECC800996CD1 /* Build configuration list for PBXProject "LocalMind2" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1218,7 +1218,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E624E1F92958ECC800996CD1 /* Build configuration list for PBXProject "LocalMind" */ = {
+		E624E1F92958ECC800996CD1 /* Build configuration list for PBXProject "LocalMind2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E624E20B2958ECC900996CD1 /* Debug */,

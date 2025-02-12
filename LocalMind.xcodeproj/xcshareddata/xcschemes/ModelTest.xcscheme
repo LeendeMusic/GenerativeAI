@@ -31,7 +31,7 @@
                BlueprintIdentifier = "15E415D02A18A2970057A15E"
                BuildableName = "ModelTest"
                BlueprintName = "ModelTest"
-               ReferencedContainer = "container:LocalMind.xcodeproj">
+               ReferencedContainer = "container:LocalMind2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,7 +61,7 @@
             BlueprintIdentifier = "15E415D02A18A2970057A15E"
             BuildableName = "ModelTest"
             BlueprintName = "ModelTest"
-            ReferencedContainer = "container:LocalMind.xcodeproj">
+            ReferencedContainer = "container:LocalMind2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "15E415D02A18A2970057A15E"
             BuildableName = "ModelTest"
             BlueprintName = "ModelTest"
-            ReferencedContainer = "container:LocalMind.xcodeproj">
+            ReferencedContainer = "container:LocalMind2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
