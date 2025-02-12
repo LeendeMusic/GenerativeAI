@@ -19,20 +19,27 @@ struct DownloadButton: View {
     
 
     
-    private func download() {
+    func download() {
         status = "downloading"
         print("Downloading model \(modelName) from \(modelUrl)")
         guard let url = URL(string: modelUrl) else { return }
-        let fileURL = getFileURLFormPathStr(dir:"models",filename: filename)
+        let fileURL = getFileURLFormPathStr(dir:"models", filename: filename)
         
         downloadTask = URLSession.shared.downloadTask(with: url) { temporaryURL, response, error in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    status = "error"
+                }
                 return
             }
             
-            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+            guard let response = response as? HTTPURLResponse,
+                  (200...299).contains(response.statusCode) else {
                 print("Server error!")
+                DispatchQueue.main.async {
+                    status = "error"
+                }
                 return
             }
             
@@ -40,18 +47,20 @@ struct DownloadButton: View {
                 if let temporaryURL = temporaryURL {
                     try FileManager.default.copyItem(at: temporaryURL, to: fileURL)
                     print("Writing to \(filename) completed")
-                    
-                    
-                    //                    let model = Model(name: modelName, url: modelUrl, filename: filename, status: "downloaded")
-                    status = "downloaded"
+                    DispatchQueue.main.async {
+                        status = "downloaded"
+                    }
                 }
-            } catch let err {
-                print("Error: \(err.localizedDescription)")
+            } catch {
+                print("Error: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    status = "error"
+                }
             }
         }
         
-        observation = downloadTask?.progress.observe(\.fractionCompleted) { progress, _ in
-            self.progress = progress.fractionCompleted
+        observation = downloadTask?.progress.observe(\.fractionCompleted) { observationProgress, _ in
+            progress = observationProgress.fractionCompleted
         }
         
         downloadTask?.resume()
@@ -96,5 +105,10 @@ struct DownloadButton: View {
         //     }
         // }
     }
+}
+
+enum DownloadError: Error {
+    case invalidURL
+    case serverError
 }
 

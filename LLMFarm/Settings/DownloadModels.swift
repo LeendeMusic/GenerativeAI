@@ -16,118 +16,100 @@ public protocol Tabbable: Identifiable {
 }
 
 struct DownloadModelsView: View {
+    @StateObject private var downloadManager = DownloadManager.shared
+    @State private var customUrl: String = ""
+    @State private var showError: Bool = false
+    @State private var errorMessage: String = ""
+    @Environment(\.scenePhase) private var scenePhase
     
-
-    @State var searchText: String = ""
-    @State var models_info: [DownloadModelInfo] = get_downloadble_models("downloadable_models.json") ?? []
-    @State var model_selection: String?
-    @State private var isImporting: Bool = false
-    @State private var modelImported: Bool = false
-    let bin_type = UTType(tag: "bin", tagClass: .filenameExtension, conformingTo: nil)
-    let gguf_type = UTType(tag: "gguf", tagClass: .filenameExtension, conformingTo: nil)
-    @State private var model_file_url: URL = URL(filePath: "")
-    @State private var model_file_name: String = ""
-    @State private var model_file_path: String = "select model"
-    @State private var add_button_icon: String = "plus.app"
-
-//    @State private var downloadTask: URLSessionDownloadTask?
-//    @State private var progress = 0.0
-//    @State private var observation: NSKeyValueObservation?
-
-//    private static func getFileURL(filename: String) -> URL {
-//        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(filename)
-//    }
-//    
-    
-//    init (){
-//        self._models_info = State(initialValue: get_downloadble_models("downloadable_models.json")!)
-//    }
-    
-    
-    func delete(at offsets: IndexSet) {
-//        let chatsToDelete = offsets.map { self.models_info[$0] }
-//        _ = delete_models(chatsToDelete,dest:dir)
-//        models_info = get_models_list(dir:dir) ?? []        
-    }
-    
-    func delete(at elem:Dictionary<String, String>){
-//        _  = delete_models([elem],dest:dir)
-//        self.models_info.removeAll(where: { $0 == elem })
-//        models_info = get_models_list(dir:dir) ?? []
-    }
-    
-    private func delayIconChange() {
-        // Delay of 7.5 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            add_button_icon = "plus.app"
-        }
-    }
-    
-    
-    
-    var body: some View {
-        ZStack{
-            //            Color("color_bg").edgesIgnoringSafeArea(.all)
-            VStack{
-//                 Button(action: {
-//                    let fileURL = DownloadButton.getFileURL(filename: filename)
-//                    if !FileManager.default.fileExists(atPath: fileURL.path) {
-//                        download()
-//                        return
-//                    }
-//                    do {
-//                        try llamaState.loadModel(modelUrl: fileURL)
-//                    } catch let err {
-//                        print("Error: \(err.localizedDescription)")
-//                    }
-//                }) {
-//                    Text("Load \(modelName)")
-//                }
-                VStack(spacing: 5){
-                    List(selection: $model_selection){
-                        ForEach(models_info, id: \.self) { model_info  in
-
-                            ModelDownloadItem(modelInfo:model_info)
-//                                modelName: model["name"],
-//                                modelIcon: "square.stack.3d.up.fill",
-//                                model_files:  model["models"])                          
+    var downloadStatusBar: some View {
+        Group {
+            if downloadManager.downloadStatus == "downloading" {
+                VStack {
+                    HStack {
+                        Image(systemName: "arrow.down.circle")
+                        Text("\(downloadManager.currentFileName)")
+                        Spacer()
+                        Button(action: {
+                            downloadManager.downloadStatus = "download"
+                        }) {
+                            Image(systemName: "stop.circle.fill")
                         }
-//                        .onDelete(perform: delete)
                     }
-#if os(macOS)
-                    .listStyle(.sidebar)
-#else
-                    .listStyle(InsetListStyle())
-#endif
+                    
+                    HStack {
+                        Text(String(format: "%.1f/%.1f GB", 
+                             Double(downloadManager.bytesWritten) / 1_000_000_000,
+                             Double(downloadManager.totalBytes) / 1_000_000_000))
+                        Spacer()
+                        Text(String(format: "%.1f MB/s", 
+                             downloadManager.downloadSpeed / 1_000_000))
+                        Spacer()
+                        Text(String(format: "残り %.0f分", 
+                             downloadManager.estimatedTimeRemaining / 60))
+                    }
+                    .font(.caption)
+                    
+                    ProgressView(value: downloadManager.progress)
                 }
-                if  models_info.count <= 0 {
-                    VStack{
-                        
-                        Button {
-                            Task {
-                                isImporting.toggle()
-                            }
-                        } label: {
-                            Image(systemName: "plus.square.dashed")
-                                .foregroundColor(.secondary)
-                                .font(.system(size: 40))
-                        }
-                        .buttonStyle(.borderless)
-                        .controlSize(.large)
-                        Text("Add model")
-                            .font(.title3)
-                            .frame(maxWidth: .infinity)
-                        
-                    }.opacity(0.4)
-                        .frame(maxWidth: .infinity,alignment: .center)
-                }
-                
+                .padding()
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(8)
+                .padding(.horizontal)
             }
         }
-        .toolbar{
-           
+    }
+    
+    private func startDownload() {
+        if !customUrl.isEmpty {
+            let fileName = URL(string: customUrl)?.lastPathComponent ?? "model.gguf"
+            downloadManager.currentFileName = fileName
+            
+            guard let url = URL(string: customUrl) else { return }
+            downloadManager.startDownload(url: url)
         }
-        .navigationTitle("Download models")      
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                TextField("Hugging Face GGUFのURLを入力", text: $customUrl)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .disabled(downloadManager.downloadStatus == "downloading")
+                
+                if downloadManager.downloadStatus == "downloading" {
+                    Button(action: {
+                        downloadManager.downloadStatus = "download"
+                    }) {
+                        Image(systemName: "stop.circle.fill")
+                    }
+                } else {
+                    Button(action: startDownload) {
+                        Image(systemName: "icloud.and.arrow.down")
+                    }
+                    .disabled(customUrl.isEmpty)
+                }
+            }
+            .padding()
+            
+            downloadStatusBar
+            
+            Spacer()
+        }
+        .navigationTitle("Download models")
+        .alert("ダウンロードエラー", isPresented: $showError) {
+            Button("OK") { }
+        } message: {
+            Text(errorMessage)
+        }
+        .onChange(of: downloadManager.downloadStatus) { newStatus in
+            if newStatus == "downloaded" {
+                customUrl = ""
+            } else if newStatus == "error" {
+                showError = true
+                errorMessage = "ダウンロード中にエラーが発生しました"
+            }
+        }
     }
 }
 

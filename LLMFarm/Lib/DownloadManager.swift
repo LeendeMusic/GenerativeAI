@@ -8,9 +8,81 @@
 import Foundation
 
 
-final class DownloadManager: ObservableObject {
+final class DownloadManager: NSObject, ObservableObject, URLSessionDownloadDelegate {
+    static let shared = DownloadManager()
+    
     @Published var isDownloading = false
     @Published var isDownloaded = false
+    @Published var progress: Double = 0.0
+    @Published var currentFileName: String = ""
+    @Published var downloadStatus: String = "download"
+    
+    @Published var bytesWritten: Int64 = 0
+    @Published var totalBytes: Int64 = 0
+    @Published var downloadSpeed: Double = 0
+    @Published var estimatedTimeRemaining: TimeInterval = 0
+    
+    private var lastBytesWritten: Int64 = 0
+    private var lastSpeedUpdateTime = Date()
+    
+    private override init() {
+        super.init()
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        guard let response = downloadTask.response as? HTTPURLResponse,
+              (200...299).contains(response.statusCode) else {
+            print("Server error!")
+            DispatchQueue.main.async {
+                self.isDownloading = false
+                self.isDownloaded = false
+                self.downloadStatus = "error"
+            }
+            return
+        }
+        
+        do {
+            let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            let destinationURL = documentsPath.appendingPathComponent("models").appendingPathComponent(currentFileName)
+            
+            try FileManager.default.createDirectory(at: documentsPath.appendingPathComponent("models"), withIntermediateDirectories: true)
+            try FileManager.default.copyItem(at: location, to: destinationURL)
+            
+            DispatchQueue.main.async {
+                self.isDownloading = false
+                self.isDownloaded = true
+                self.downloadStatus = "downloaded"
+            }
+        } catch {
+            print("Error saving file: \(error)")
+            DispatchQueue.main.async {
+                self.downloadStatus = "error"
+            }
+        }
+    }
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        let now = Date()
+        let timeInterval = now.timeIntervalSince(self.lastSpeedUpdateTime)
+        
+        DispatchQueue.main.async {
+            self.totalBytes = totalBytesExpectedToWrite
+            self.bytesWritten = totalBytesWritten
+            
+            if timeInterval >= 1.0 {
+                let bytesPerSecond = Double(totalBytesWritten - self.lastBytesWritten) / timeInterval
+                let remainingBytes = Double(totalBytesExpectedToWrite - totalBytesWritten)
+                
+                self.downloadSpeed = bytesPerSecond
+                self.estimatedTimeRemaining = remainingBytes / bytesPerSecond
+                
+                self.lastBytesWritten = totalBytesWritten
+                self.lastSpeedUpdateTime = now
+            }
+            
+            self.progress = totalBytesExpectedToWrite > 0 ? Double(totalBytesWritten) / Double(totalBytesExpectedToWrite) : 0.0
+        }
+    }
     
     func downloadFile() {
         print("downloadFile")
@@ -107,4 +179,25 @@ final class DownloadManager: ObservableObject {
 //            return nil
 //        }
 //    }
+    
+    func startDownload(url: URL) {
+        isDownloading = true
+        isDownloaded = false
+        downloadStatus = "downloading"
+        progress = 0.0
+        bytesWritten = 0
+        totalBytes = 0
+        downloadSpeed = 0
+        estimatedTimeRemaining = 0
+        lastBytesWritten = 0
+        lastSpeedUpdateTime = Date()
+        
+        let config = URLSessionConfiguration.background(withIdentifier: "com.llmfarm.modeldownload")
+        config.sessionSendsLaunchEvents = true
+        config.isDiscretionary = false
+        
+        let session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+        let downloadTask = session.downloadTask(with: url)
+        downloadTask.resume()
+    }
 }

@@ -12,6 +12,11 @@ import SimilaritySearchKitMiniLMAll
 import SimilaritySearchKitMiniLMMultiQA
 import os
 import llmfarm_core
+import llmfarm_core_cpp
+import UIKit
+
+// LLaMaClip.ImageUploadのインポートを削除
+// @_implementationOnly import LLMFarm.ImageUpload
 
 private extension Duration {
     var seconds: Double {
@@ -34,8 +39,8 @@ final class AIChatModel: ObservableObject {
     
     public var chat: AI?
     public var modelURL: String
-    // public var model_sample_param: ModelSampleParams = ModelSampleParams.default
-    // public var model_context_param: ModelAndContextParams = ModelAndContextParams.default
+    private var model_context_param: ModelAndContextParams = .default
+    private var model_sample_param: ModelSampleParams = .default
     public var numberOfTokens = 0
     public var total_sec = 0.0
     public var action_button_icon = "paperplane"
@@ -75,6 +80,9 @@ final class AIChatModel: ObservableObject {
     @Published var cur_eval_token_num: Int = 0
     @Published var query_tokens_count: Int = 0
     
+    @Published var currentImage: UIImage?
+    @Published var clipModel: LLaMaClip?
+    
     public init(){
         chat = nil
         modelURL = ""
@@ -111,9 +119,9 @@ final class AIChatModel: ObservableObject {
     }
 
     private func after_model_load(_ load_result: String,
-                                  in_text:String,
+                                  in_text: String,
                                   attachment: String? = nil,
-                                  attachment_type: String? = nil){
+                                  attachment_type: String? = nil) {
         if load_result != "[Done]" ||
             self.chat?.model == nil || 
             self.chat?.model!.context == nil {
@@ -122,23 +130,24 @@ final class AIChatModel: ObservableObject {
         }            
 
         self.finish_load()
-        //Set prompt model if in config or try to set promt format by filename
         
-        print(self.chat?.model?.contextParams)
-        print(self.chat?.model?.sampleParams)
+        // パラメータの設定を修正
+        self.chat?.model?.contextParams = model_context_param
+        self.chat?.model?.sampleParams = model_sample_param
+        
         self.model_loading = false
-        var system_prompt:String? = nil
-        if self.chat?.model?.contextParams.system_prompt != "" && self.chat?.model?.nPast == 0{
+        var system_prompt: String? = nil
+        if self.chat?.model?.contextParams.system_prompt != "" && self.chat?.model?.nPast == 0 {
             system_prompt = self.chat?.model?.contextParams.system_prompt ?? " " + "\n"
             self.messages[self.messages.endIndex - 1].header = self.chat?.model?.contextParams.system_prompt ?? ""
         }
         self.chat?.model?.parse_skip_tokens()
-        Task{
+        Task {
             await self.Send(message: in_text, 
-                            append_user_message:false,
-                            system_prompt:system_prompt,
-                            attachment:attachment,
-                            attachment_type:attachment_type)
+                           append_user_message: false,
+                           system_prompt: system_prompt,
+                           attachment: attachment,
+                           attachment_type: attachment_type)
         }
     }
     
@@ -320,7 +329,7 @@ final class AIChatModel: ObservableObject {
     }
     
     public func check_stop_words(_ token:String,_ message_text: inout String) -> Bool{
-        var check = true
+        let check = true
         for stop_word in self.chat?.model?.contextParams.reverse_prompt ?? []{
             if token == stop_word {
                 return false
@@ -550,5 +559,68 @@ final class AIChatModel: ObservableObject {
             },
             system_prompt:system_prompt,img_path:img_real_path)
         // self.conv_finished_group.leave()
+    }
+
+    // contextParamsとsampleParamsの処理を修正
+    private func updateModelParams() {
+        if let model = self.chat?.model {
+            let contextParams = ModelAndContextParams.default
+            let sampleParams = ModelSampleParams.default
+            
+            model.contextParams = contextParams
+            model.sampleParams = sampleParams
+        }
+    }
+}
+
+// LLaMaClipクラスの直接実装
+class LLaMaClip {
+    var useGPU: Bool = true
+    private var modelPath: String
+    private var model: LLaMa_MModal?
+    
+    init(modelPath: String) {
+        self.modelPath = modelPath
+        initializeModel()
+    }
+    
+    private func initializeModel() {
+        var params = ModelAndContextParams.default
+        params.clip_model = modelPath
+        params.use_clip_metal = useGPU
+        
+        do {
+            model = try LLaMa_MModal(path: modelPath, contextParams: params)
+            try? model?.load_clip_model()
+        } catch {
+            print("Error initializing model: \(error)")
+        }
+    }
+    
+    func processImage(_ image: UIImage) -> String? {
+        guard let model = model else { return nil }
+        
+        if let imagePath = saveImageToCache(image) {
+            if model.make_image_embed(imagePath) {
+                return "Image processed successfully"
+            }
+        }
+        return nil
+    }
+    
+    private func saveImageToCache(_ image: UIImage) -> String? {
+        let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+        let imagePath = cachesDirectory?.appendingPathComponent("temp_clip_image.jpg").path
+        
+        if let jpegData = image.jpegData(compressionQuality: 0.8),
+           let path = imagePath {
+            try? jpegData.write(to: URL(fileURLWithPath: path))
+            return path
+        }
+        return nil
+    }
+    
+    deinit {
+        model?.deinit_clip_model()
     }
 }
