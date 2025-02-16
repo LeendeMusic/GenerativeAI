@@ -258,7 +258,7 @@ struct ChatView: View {
                 }
                 //                .font(.title2)
             }
-            .navigationTitle(aiChatModel.Title)
+            .navigationTitle("\(aiChatModel.model_icon) \(aiChatModel.Title)")
             
             LLMTextInput(messagePlaceholder: placeholderString,
                          show_attachment_btn:self.aiChatModel.is_mmodal,

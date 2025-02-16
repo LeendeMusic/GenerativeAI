@@ -47,8 +47,7 @@ struct ChatSettingsView: View {
     
     @State private var model_file_url: URL = URL(filePath: "/")
     @State private var model_file_path: String = "Select model"
-    // @State private var models_previews = get_models_list(exts:[".gguf",".bin"]) ?? []
-    @State private var models_previews = getFileListByExts(exts:[".gguf"]) ?? []
+    @State private var models_previews = getFileListByExts(exts:[".gguf", ".bin"]) ?? []
     @State private var clip_model_file_url: URL = URL(filePath: "/")
     @State private var clip_model_file_path: String = "Select Clip model"
     @State private var clip_model_title: String = ""
@@ -120,12 +119,27 @@ struct ChatSettingsView: View {
         chat_setting_templates = get_model_setting_templates()
     }
     
-    init(add_chat_dialog: Binding<Bool>,edit_chat_dialog:Binding<Bool>,
-         after_chat_edit: Binding<() -> Void>,toggleSettings: Binding<Bool>) {
+    init(add_chat_dialog: Binding<Bool>, edit_chat_dialog: Binding<Bool>,
+         after_chat_edit: Binding<() -> Void>, toggleSettings: Binding<Bool>) {
         self._add_chat_dialog = add_chat_dialog
         self._edit_chat_dialog = edit_chat_dialog
         self._after_chat_edit = after_chat_edit
         self._toggleSettings = toggleSettings
+        
+        // 新規チャット作成時のデフォルト設定
+        if !edit_chat_dialog.wrappedValue {
+            // デフォルトの絵文字を設定
+            self._chat_icon = State(initialValue: "🤖")
+            
+            // デモモデルをデフォルトとして設定
+            self._model_file_path = State(initialValue: "[DEMO].gguf")
+            self._chat_title = State(initialValue: "DEMO")
+            
+            // その他のデフォルト設定
+            self._model_context = State(initialValue: 2048)
+            self._model_temp = State(initialValue: 0.7)
+            self._model_top_p = State(initialValue: 0.9)
+        }
     }
     
     init(add_chat_dialog: Binding<Bool>,edit_chat_dialog:Binding<Bool>,
@@ -352,6 +366,7 @@ struct ChatSettingsView: View {
             "clip_model":clip_model_file_path,
             "lora_adapters":lora_adapters,
             "title":chat_title,
+            "model_icon":chat_icon,
             "icon":chat_icon,
             "model_inference":model_inference_inner,
             "use_metal":use_metal,
@@ -401,7 +416,14 @@ struct ChatSettingsView: View {
             model_not_selected_alert = true
             return
         }
-        //                            if !edit_chat_dialog {
+        
+        // モデルファイルの拡張子をチェック
+        let fileExtension = (model_file_path as NSString).pathExtension.lowercased()
+        if fileExtension != "gguf" && fileExtension != "bin" {
+            model_not_selected_alert = true
+            return
+        }
+        
         if model_file_url.path != "/"{
             print(model_file_url.path)
             let sandbox_path = CopyFileToSandbox(url: model_file_url,dest: "models")
@@ -423,16 +445,18 @@ struct ChatSettingsView: View {
                 clip_model_file_path = sandbox_path!
             }
         }
-        //#if os(macOS)
-        
-        //#endif
-        //                            }
+
         lora_adapters.append(["adapter":lora_file_path,"scale":lora_file_scale])
         let options = get_chat_options_dict()
         _ = CreateChat(options,edit_chat_dialog:self.edit_chat_dialog,chat_name:self.chat_name)
+        
+        // アイコンを直接更新
+        DispatchQueue.main.async {
+            aiChatModel.model_icon = chat_icon
+        }
+        
         if add_chat_dialog {
             add_chat_dialog = false
-            
         }
         if edit_chat_dialog {
             edit_chat_dialog = false
@@ -589,6 +613,17 @@ struct ChatSettingsView: View {
             }
         }
 //        .edgesIgnoringSafeArea(.all)
+        .onAppear {
+            if edit_chat_dialog {
+                let chat_config = getChatInfo(chat_name)
+                if let config = chat_config {
+                    if let icon = config["chat_icon"] as? String {
+                        chat_icon = icon
+                    }
+                    // ... 他の設定の読み込み ...
+                }
+            }
+        }
     }
 }
 

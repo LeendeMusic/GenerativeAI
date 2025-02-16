@@ -140,7 +140,7 @@ let package = Package(
     //        targets: ["llmfarm_core_cpp_legacy"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
+        
     ],
     targets: [
         .target(

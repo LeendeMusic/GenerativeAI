@@ -29,17 +29,21 @@ struct ModelInfoItem: View {
                     .fontWeight(.medium)
                 
                 HStack {
-                    Text(size)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    if !size.isEmpty {
+                        Text(size)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        
+                        Text("•")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                     
-                    Text("•")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    
-                    Text(date)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    if !date.isEmpty {
+                        Text(date)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
             .padding(.horizontal, 10)

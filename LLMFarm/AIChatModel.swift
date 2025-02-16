@@ -83,6 +83,8 @@ final class AIChatModel: ObservableObject {
     @Published var currentImage: UIImage?
     @Published var clipModel: LLaMaClip?
     
+    @Published var model_icon: String = "💬"
+    
     public init(){
         chat = nil
         modelURL = ""
@@ -165,34 +167,44 @@ final class AIChatModel: ObservableObject {
         }
     }
 
-    public func reload_chat(_ chat_selection: Dictionary<String, String>){
-        self.stop_predict()
-//        self.model_name = model_name        
-        self.chat_name = chat_selection["chat"] ?? "Not selected"
+    public func reload_chat(_ chat_selection: Dictionary<String, String>) {
+        // 先にUIを更新
         self.Title = chat_selection["title"] ?? ""
-        self.is_mmodal =  chat_selection["mmodal"] ?? "" == "1"
+        self.model_icon = chat_selection["icon"] ?? "💬"
+        
+        // その他の処理
+        self.stop_predict()
+        self.chat_name = chat_selection["chat"] ?? "Not selected"
+        self.is_mmodal = chat_selection["mmodal"] ?? "" == "1"
+        
         messages_lock.lock()
         self.messages = []        
         self.messages = load_chat_history(chat_selection["chat"]!+".json") ?? []
         messages_lock.unlock()
+        
         self.state_dump_path = get_state_path_by_chat_name(chat_name) ?? ""
         ResetRAGUrl()
         
+        // 残りの設定読み込み
         self.ragIndexLoaded = false
         self.AI_typing = -Int.random(in: 0..<100000)
     }
 
-    public  func update_chat_params(){
+    public func update_chat_params(){
         let chat_config = getChatInfo(self.chat?.chatName ?? "")
         if (chat_config == nil){
             return
         }
-        // self.model_sample_param = get_model_sample_param_by_config(chat_config!)
-        // self.model_context_param = get_model_context_param_by_config(chat_config!)
-        // self.chat?.model?.sampleParams = self.model_sample_param
-        // self.chat?.model?.contextParams = self.model_context_param
+        
         self.chat?.model?.contextParams = get_model_context_param_by_config(chat_config!)
-        self.chat?.model?.sampleParams = get_model_sample_param_by_config(chat_config!)        
+        self.chat?.model?.sampleParams = get_model_sample_param_by_config(chat_config!)
+        
+        // アイコンの更新をメインスレッドで実行
+        if let icon = chat_config!["model_icon"] as? String {
+            DispatchQueue.main.async {
+                self.model_icon = icon
+            }
+        }
     }
     
     public func load_model_by_chat_name_prepare(_ chat_name: String,in_text:String, 
@@ -204,6 +216,11 @@ final class AIChatModel: ObservableObject {
         }
         if (chat_config!["model_inference"] == nil || chat_config!["model"] == nil){
             return nil
+        }
+        
+        // 絵文字の設定を追加
+        if let icon = chat_config!["model_icon"] as? String {
+            self.model_icon = icon
         }
         
         self.model_name = chat_config!["model"] as! String

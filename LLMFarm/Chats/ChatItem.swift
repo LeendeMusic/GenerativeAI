@@ -25,19 +25,18 @@ struct ChatItem: View {
     
     var body: some View {
         HStack{
-            Image(chatImage+"_85")
-                .resizable()
-                .background( Color("color_bg_inverted").opacity(0.05))
-                .padding(EdgeInsets(top: 7, leading: 5, bottom: 7, trailing: 5))
-                .frame(width: 85, height: 85)
+            Text(chatImage)
+                .font(.title)
+                .frame(width: 40, height: 40)
+                .background(Color.primary.opacity(0.05))
                 .clipShape(Circle())
             VStack(alignment: .leading, spacing: 5){
                 HStack{
                     Text(chatTitle)
                         .fontWeight(.semibold)
-                    //                            .font(.title3)
-                        .padding(.top, 3)
-                        .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
+                        .padding(.top, 20)
+                        .multilineTextAlignment(.leading)
+                        .frame(maxHeight: .infinity, alignment: .center)
                     Spacer()
                     //                        Text(time)
                     //                            .foregroundColor(Color("color_primary"))
@@ -46,7 +45,7 @@ struct ChatItem: View {
                 
                 
                 Text(message + " " + model_size+"G")
-                    .foregroundColor(Color("color_bg_inverted").opacity(0.5))
+                    .foregroundColor(Color.primary.opacity(0.5))
                     .font(.footnote)
                     .opacity(0.6)
                     .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)

@@ -12,7 +12,7 @@ struct SettingsHeaderItem: View {
         HStack{
             Image("Shezad")
                 .resizable()
-                .background( Color("color_bg_inverted").opacity(0.05))
+                .background(Color.primary.opacity(0.05))
                 .frame(width: 80, height: 80)
                 .clipShape(Circle())
             VStack(alignment: .leading, spacing: 6){
@@ -25,7 +25,7 @@ struct SettingsHeaderItem: View {
                 
                 HStack{
                     Text("shezadahamed@example.com")
-                        .foregroundColor(Color("color_bg_inverted").opacity(0.5))
+                        .foregroundColor(Color.primary.opacity(0.5))
                         .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
                 }
                 

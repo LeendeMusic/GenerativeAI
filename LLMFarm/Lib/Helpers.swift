@@ -444,12 +444,10 @@ public func getFileListByExts(dir: String = "models", exts: [String]) -> [Dictio
         for file in files {
             let ext = file.pathExtension
             if exts.contains(where: { $0.lowercased().hasSuffix(ext.lowercased()) }) {
-                // ファイルの属性を取得
                 let attributes = try fileManager.attributesOfItem(atPath: file.path)
                 let fileSize = attributes[.size] as? Int64 ?? 0
                 let modificationDate = attributes[.modificationDate] as? Date ?? Date()
                 
-                // 日付フォーマッター
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateStyle = .short
                 dateFormatter.timeStyle = .short
@@ -457,7 +455,7 @@ public func getFileListByExts(dir: String = "models", exts: [String]) -> [Dictio
                 let tmp_file_info = [
                     "icon": getExtIcon("." + ext),
                     "file_name": file.lastPathComponent,
-                    "size": ByteCountFormatter.string(fromByteCount: fileSize, countStyle: .file),
+                    "size": formatFileSize(fileSize),
                     "date": dateFormatter.string(from: modificationDate),
                     "description": ""
                 ]
@@ -471,7 +469,17 @@ public func getFileListByExts(dir: String = "models", exts: [String]) -> [Dictio
     }
 }
 
-
+func formatFileSize(_ size: Int64) -> String {
+    if size < 1024 {
+        return "\(size) B"
+    } else if size < 1024 * 1024 {
+        return String(format: "%.1f KB", Double(size) / 1024)
+    } else if size < 1024 * 1024 * 1024 {
+        return String(format: "%.1f MB", Double(size) / (1024 * 1024))
+    } else {
+        return String(format: "%.2f GB", Double(size) / (1024 * 1024 * 1024))
+    }
+}
 
 public func get_grammar_path_by_name(_ grammar_name:String) -> String?{
     do {

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ModelSelector: View {
+    @State private var showDownloadView = false
     
     @Binding var models_previews: [Dictionary<String, String>]
     @Binding var model_file_path: String
@@ -27,15 +28,12 @@ struct ModelSelector: View {
                     Label(import_lable, systemImage: "plus.app")
                 }
                 
-                if !edit_chat_dialog{
+                if !edit_chat_dialog {
                     Button {
-                        Task {
-//                            toggleSettings = true
-                        }
+                        showDownloadView = true
                     } label: {
                         Label(download_lable, systemImage: "icloud.and.arrow.down")
                     }
-                    
                 }
                     
                 Divider()
@@ -51,6 +49,11 @@ struct ModelSelector: View {
                 }
             } label: {
                 Label(model_file_path == "" ?selection_lable:model_file_path, systemImage: "ellipsis.circle")
+            }
+        }
+        .sheet(isPresented: $showDownloadView) {
+            NavigationView {
+                DownloadModelsView()
             }
         }
         .fileImporter(

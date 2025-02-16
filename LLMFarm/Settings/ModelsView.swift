@@ -103,9 +103,11 @@ struct ModelsView: View {
                             
                             ModelInfoItem(
                                 modelIcon: String(describing: model["icon"]!),
-                                file_name:  String(describing: model["file_name"]!),
-                                orig_file_name:String(describing: model["file_name"]!),
-                                description: String(describing: model["description"]!)
+                                file_name: String(describing: model["file_name"]!),
+                                orig_file_name: String(describing: model["file_name"]!),
+                                description: String(describing: model["description"]!),
+                                size: String(describing: model["size"]!),
+                                date: String(describing: model["date"]!)
                             ).contextMenu {
                                 Button(action: {
                                     delete(at: model)
