@@ -67,7 +67,6 @@
 		15A3EDCD2A2121D90030AF5A /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3EDC52A2121D90030AF5A /* ChatListView.swift */; };
 		15A3EDCF2A2121D90030AF5A /* ChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A3EDC72A2121D90030AF5A /* ChatItem.swift */; };
 		15A3EDD82A223CB00030AF5A /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A3EDD72A223CB00030AF5A /* Accelerate.framework */; };
-		15B1B9CB2AF023080058F275 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B1B9CA2AF023080058F275 /* main.swift */; };
 		15B1B9D02AF025DD0058F275 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = 15B1B9CF2AF025DD0058F275 /* llmfarm_core */; };
 		15B1B9D12AF025E10058F275 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E61E38F329B1F0BA00114C15 /* Accelerate.framework */; };
 		15B1B9D22AF025E80058F275 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159650F02A49F8400007BE5C /* Metal.framework */; };
@@ -86,7 +85,6 @@
 		15B9D7422A4B55EA00276782 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B9D73F2A4B55E800276782 /* MetalPerformanceShaders.framework */; };
 		15B9D7432A4B55EA00276782 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B9D7402A4B55E900276782 /* Metal.framework */; };
 		15B9D7442A4B55EA00276782 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B9D7412A4B55E900276782 /* MetalKit.framework */; };
-		15C08A5F2B9DF6D2000A1BE0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C08A5E2B9DF6D2000A1BE0 /* main.swift */; };
 		15C08A642B9DF6F7000A1BE0 /* llmfarm_core in Frameworks */ = {isa = PBXBuildFile; productRef = 15C08A632B9DF6F7000A1BE0 /* llmfarm_core */; };
 		15C08A662BA3705D000A1BE0 /* ModelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C08A652BA3705D000A1BE0 /* ModelSelector.swift */; };
 		15C08A682BA5976A000A1BE0 /* MessageImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C08A672BA5976A000A1BE0 /* MessageImage.swift */; };
@@ -225,7 +223,6 @@
 		15A3EDD22A223BDF0030AF5A /* llmfarm_core.swift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = llmfarm_core.swift; sourceTree = "<group>"; };
 		15A3EDD72A223CB00030AF5A /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		15B1B9C82AF023080058F275 /* FineTune_Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FineTune_Test; sourceTree = BUILT_PRODUCTS_DIR; };
-		15B1B9CA2AF023080058F275 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		15B1B9D52AF025FC0058F275 /* MetalPerformanceShadersGraph.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShadersGraph.framework; path = System/Library/Frameworks/MetalPerformanceShadersGraph.framework; sourceTree = SDKROOT; };
 		15B1B9D92AF588FD0058F275 /* SettingsMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMenuItem.swift; sourceTree = "<group>"; };
 		15B716502C27090400CA600B /* PromptSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptSettingsView.swift; sourceTree = "<group>"; };
@@ -240,7 +237,6 @@
 		15B9D7402A4B55E900276782 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/Metal.framework; sourceTree = DEVELOPER_DIR; };
 		15B9D7412A4B55E900276782 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/MetalKit.framework; sourceTree = DEVELOPER_DIR; };
 		15C08A5C2B9DF6D1000A1BE0 /* LLaVATest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LLaVATest; sourceTree = BUILT_PRODUCTS_DIR; };
-		15C08A5E2B9DF6D2000A1BE0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		15C08A652BA3705D000A1BE0 /* ModelSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSelector.swift; sourceTree = "<group>"; };
 		15C08A672BA5976A000A1BE0 /* MessageImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImage.swift; sourceTree = "<group>"; };
 		15C08A692BA5CB2C000A1BE0 /* MobileVLM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MobileVLM.json; sourceTree = "<group>"; };
@@ -449,22 +445,6 @@
 			path = Chats;
 			sourceTree = "<group>";
 		};
-		15B1B9C92AF023080058F275 /* FineTune_Test */ = {
-			isa = PBXGroup;
-			children = (
-				15B1B9CA2AF023080058F275 /* main.swift */,
-			);
-			path = FineTune_Test;
-			sourceTree = "<group>";
-		};
-		15C08A5D2B9DF6D2000A1BE0 /* LLaVATest */ = {
-			isa = PBXGroup;
-			children = (
-				15C08A5E2B9DF6D2000A1BE0 /* main.swift */,
-			);
-			path = LLaVATest;
-			sourceTree = "<group>";
-		};
 		15DFE60D2CC549E400E359F9 /* RAG */ = {
 			isa = PBXGroup;
 			children = (
@@ -539,8 +519,6 @@
 				E6024EC229EA7BEB001FE9B0 /* Packages */,
 				E624E2102958F21E00996CD1 /* Info.plist */,
 				15F2107F2A191B190021F414 /* LLMFarm */,
-				15B1B9C92AF023080058F275 /* FineTune_Test */,
-				15C08A5D2B9DF6D2000A1BE0 /* LLaVATest */,
 				E624E1FF2958ECC800996CD1 /* Products */,
 				E624E259295902A100996CD1 /* Frameworks */,
 			);
@@ -774,7 +752,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15B1B9CB2AF023080058F275 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,7 +759,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15C08A5F2B9DF6D2000A1BE0 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
