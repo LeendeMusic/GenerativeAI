@@ -373,7 +373,8 @@ struct ChatSettingsView: View {
             "use_clip_metal":use_clip_metal,
             "mlock":mlock,
             "mmap":mmap,
-            "prompt_format":prompt_format,
+            "prompt_format": "{{prompt}}",
+            "system_prompt": prompt_format,
             "warm_prompt":warm_prompt,
             "reverse_prompt":reverse_prompt,
             "numberOfThreads":Int32(numberOfThreads),
@@ -453,6 +454,12 @@ struct ChatSettingsView: View {
         // アイコンを直接更新
         DispatchQueue.main.async {
             aiChatModel.model_icon = chat_icon
+            aiChatModel.Title = chat_title
+        }
+        
+        // 設定を即座に適用
+        DispatchQueue.main.async {
+            aiChatModel.update_chat_params()
         }
         
         if add_chat_dialog {
@@ -542,14 +549,9 @@ struct ChatSettingsView: View {
                                 // }
                             }
                         case 1:
-                            PromptSettingsView(prompt_format: $prompt_format,
-                                               warm_prompt: $warm_prompt,
-                                               skip_tokens: $skip_tokens,
-                                               reverse_prompt: $reverse_prompt,
-                                               add_bos_token: $add_bos_token,
-                                               add_eos_token: $add_eos_token,
-                                               parse_special_tokens: $parse_special_tokens,
-                                               model_inference: $model_inference)
+                            Section(header: Text("Prompt Format")) {
+                                PromptSettingsView(prompt_format: $prompt_format)
+                            }
                         case 2:
                             GroupBox(label:
                                         Text("Sampling settings")

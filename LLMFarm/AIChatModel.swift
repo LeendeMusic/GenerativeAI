@@ -199,10 +199,16 @@ final class AIChatModel: ObservableObject {
         self.chat?.model?.contextParams = get_model_context_param_by_config(chat_config!)
         self.chat?.model?.sampleParams = get_model_sample_param_by_config(chat_config!)
         
-        // アイコンの更新をメインスレッドで実行
-        if let icon = chat_config!["model_icon"] as? String {
-            DispatchQueue.main.async {
+        // メインスレッドでUIを更新
+        DispatchQueue.main.async {
+            // アイコンの更新
+            if let icon = chat_config!["chat_icon"] as? String {
                 self.model_icon = icon
+            }
+            
+            // タイトルの更新を追加
+            if let title = chat_config!["title"] as? String {
+                self.Title = title
             }
         }
     }

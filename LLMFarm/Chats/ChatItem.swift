@@ -44,7 +44,7 @@ struct ChatItem: View {
                 }
                 
                 
-                Text(message + " " + model_size+"G")
+                Text(message)
                     .foregroundColor(Color.primary.opacity(0.5))
                     .font(.footnote)
                     .opacity(0.6)

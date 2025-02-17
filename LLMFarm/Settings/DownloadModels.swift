@@ -23,39 +23,55 @@ struct DownloadModelsView: View {
     @Environment(\.scenePhase) private var scenePhase
     
     var downloadStatusBar: some View {
-        Group {
+        VStack(spacing: 12) {
             if downloadManager.downloadStatus == "downloading" {
-                VStack {
+                VStack(spacing: 10) {
                     HStack {
-                        Image(systemName: "arrow.down.circle")
-                        Text("\(downloadManager.currentFileName)")
+                        Image(systemName: "arrow.down.circle.fill")
+                            .foregroundColor(.accentColor)
+                            .font(.title3)
+                        Text(downloadManager.currentFileName)
+                            .font(.headline)
                         Spacer()
                         Button(action: {
                             downloadManager.downloadStatus = "download"
                         }) {
                             Image(systemName: "stop.circle.fill")
+                                .foregroundColor(.red)
+                                .font(.title3)
                         }
                     }
                     
-                    HStack {
-                        Text(String(format: "%.1f/%.1f GB", 
-                             Double(downloadManager.bytesWritten) / 1_000_000_000,
-                             Double(downloadManager.totalBytes) / 1_000_000_000))
+                    ProgressView(value: downloadManager.progress)
+                        .tint(.accentColor)
+                    
+                    HStack(spacing: 12) {
+                        Label(
+                            String(format: "%.1f/%.1f GB",
+                                  Double(downloadManager.bytesWritten) / 1_000_000_000,
+                                  Double(downloadManager.totalBytes) / 1_000_000_000),
+                            systemImage: "doc.fill"
+                        )
                         Spacer()
-                        Text(String(format: "%.1f MB/s", 
-                             downloadManager.downloadSpeed / 1_000_000))
+                        Label(
+                            String(format: "%.1f MB/s",
+                                  downloadManager.downloadSpeed / 1_000_000),
+                            systemImage: "speedometer"
+                        )
                         Spacer()
-                        Text(String(format: "残り %.0f分", 
-                             downloadManager.estimatedTimeRemaining / 60))
+                        Label(
+                            String(format: "残り%.0f分",
+                                  downloadManager.estimatedTimeRemaining / 60),
+                            systemImage: "timer"
+                        )
                     }
                     .font(.caption)
-                    
-                    ProgressView(value: downloadManager.progress)
+                    .foregroundColor(.secondary)
                 }
                 .padding()
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(8)
-                .padding(.horizontal)
+                .background(Color(.systemBackground))
+                .cornerRadius(12)
+                .shadow(color: .black.opacity(0.05), radius: 5)
             }
         }
     }

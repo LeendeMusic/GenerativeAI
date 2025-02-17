@@ -27,7 +27,6 @@ struct ChatView: View {
     @Binding var addChatDialog:Bool
     @Binding var editChatDialog:Bool
     @State var chatStyle: String = "None"
-    @State private var reloadButtonIcon: String = "arrow.counterclockwise.circle"
     @State private var clearChatButtonIcon: String = "eraser.line.dashed.fill"
     
     @State private var scrollProxy: ScrollViewProxy? = nil
@@ -234,29 +233,15 @@ struct ChatView: View {
                 }, message: {
                     Text("The message history will be cleared")
                 })
+                
                 Button {
                     Task {
-                        hard_reload_chat()
-                        reloadButtonIcon = "checkmark"
-                        run_after_delay(delay:1200, function:{reloadButtonIcon = "arrow.counterclockwise.circle"})
-//                        delayIconChange()
-                    }
-                } label: {
-                    Image(systemName: reloadButtonIcon)
-                }
-                .disabled(aiChatModel.predicting)
-                //                .font(.title2)
-                Button {
-                    Task {
-                                            //    add_chat_dialog = true
                         toggleEditChat = true
                         editChatDialog = true
-                        //                        chat_selection = nil
                     }
                 } label: {
                     Image(systemName: "slider.horizontal.3")
                 }
-                //                .font(.title2)
             }
             .navigationTitle("\(aiChatModel.model_icon) \(aiChatModel.Title)")
             

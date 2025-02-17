@@ -96,76 +96,73 @@ public struct LLMTextInput: View {
     
     public var body: some View {
         HStack(alignment: .bottom) {
-//            if self.showAttachmentBtn{
-                if imgCahcePath != nil && platformImage != nil{
-                    HStack{
-#if os(macOS)
-                        Image(nsImage:platformImage!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: 30,maxHeight: 40)
-#else
-                        Image(uiImage:platformImage!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxWidth: 30,maxHeight: 40)
-                        //                            .clipShape(Circle())
-#endif
-                        // image!
-                    }
-                    .cornerRadius(5) /// make the background rounded
-                    .overlay( /// apply a rounded border
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(.gray, lineWidth: 1)
-                    )
+            if imgCahcePath != nil && platformImage != nil {
+                HStack {
+                    #if os(macOS)
+                    Image(nsImage: platformImage!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 30, maxHeight: 40)
+                        .cornerRadius(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(.gray, lineWidth: 1)
+                        )
+                    #else
+                    Image(uiImage: platformImage!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 30, maxHeight: 40)
+                        .cornerRadius(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(.gray, lineWidth: 1)
+                        )
+                    #endif
                 }
-                Group {
-                    attachButton
-                }
-                .frame(minWidth: 33)
-                .padding(.leading, -22)
-                .zIndex(1)
-//            }
+            }
             
-            TextField(messagePlaceholder, text: $input_text, axis: .vertical )
+            Group {
+                attachButton
+            }
+            .frame(minWidth: 33)
+            .padding(.horizontal, 8)
+            .zIndex(1)
+            
+            TextField(messagePlaceholder, text: $input_text, axis: .vertical)
                 .onSubmit {
                     sendMessageButtonPressed(img_path:imgCahcePath)
                 }
                 .textFieldStyle(.plain)
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 10)
+                .padding(.leading, 0) // プラスボタンとの重なりを避けるためのパディング
                 .background {
                     RoundedRectangle(cornerRadius: 20)
-#if os(macOS)
-                        .stroke(Color(NSColor.systemGray), lineWidth: 0.2)
-#else
-                        .stroke(Color(UIColor.systemGray2), lineWidth: 0.2)
-#endif
-                        .background {
+                        .fill(Color(.systemBackground))
+                        .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 1)
+                        .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(.white.opacity(0.1))
-                        }
-                        .padding(.trailing, -42)
-                        .padding(.leading,-22)
-//                        .padding(.leading, self.showAttachmentBtn ? 5: 0)
-                    
+                                .stroke(Color.accentColor.opacity(0.2), lineWidth: 1)
+                        )
                 }
                 .focused(focusedField, equals: .msg)
                 .lineLimit(1...5)
+            
             Group {
                 sendButton
+                    .padding(.horizontal, 10)
                     .disabled(disable_send())
             }
             .frame(minWidth: 33)
-            
         }
         .padding(.horizontal, 16)
-#if os(macOS)
+        #if os(macOS)
         .padding(.top, 2)
-#else
+        #else
         .padding(.top, 6)
-#endif
+        #endif
         .padding(.bottom, 10)
         .background(.thinMaterial)
         .background {
@@ -281,24 +278,23 @@ public struct LLMTextInput: View {
         Button(action: {
             self.isAttachmentPopoverPresented = true
         }) {
-            Image(systemName: "plus.circle")
+            Image(systemName: "plus.circle.fill")
                 .resizable()
-                .frame(width: 20,height: 20)
+                .frame(width: 22, height: 22)
+                .foregroundColor(.accentColor)
         }
         .buttonStyle(.borderless)
         #if os(macOS)
-        .offset(x: 20, y: -6)
+        .offset(x: 0, y: -6)
         .sheet(isPresented: $isAttachmentPopoverPresented) {
             popoverContent
         }
         #else
-        .offset(x: 20, y: -10)
+        .offset(x: 0, y: -10)
         .popover(isPresented: $isAttachmentPopoverPresented) {
             popoverContent
         }
         #endif
-        
-
     }
     
     /// - Parameters:

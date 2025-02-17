@@ -348,9 +348,9 @@ public func get_chats_list() -> [Dictionary<String, String>]?{
                 }
                 if (info!["model"] != nil){
                     model = info!["model"] as! String
+                    message = model  // モデル名のみを表示
                     model_info = get_model_info(model)
                     m_size = model_info["model_size"] as! UInt64
-//                    message += " msize:" + (model_info["model_size"] as! UInt64).description
                 }
                 var mmodal = "0"
                 if (info!["clip_model"] != nil){
