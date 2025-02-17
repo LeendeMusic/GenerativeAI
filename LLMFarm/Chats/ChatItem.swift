@@ -24,35 +24,41 @@ struct ChatItem: View {
     var close_chat: () -> Void
     
     var body: some View {
-        HStack{
+        HStack(spacing: 12) {
             Text(chatImage)
-                .font(.title)
-                .frame(width: 40, height: 40)
-                .background(Color.primary.opacity(0.05))
-                .clipShape(Circle())
-            VStack(alignment: .leading, spacing: 5){
-                HStack{
-                    Text(chatTitle)
-                        .fontWeight(.semibold)
-                        .padding(.top, 20)
-                        .multilineTextAlignment(.leading)
-                        .frame(maxHeight: .infinity, alignment: .center)
-                    Spacer()
-                    //                        Text(time)
-                    //                            .foregroundColor(Color("color_primary"))
-                    //                            .padding(.top, 3)
-                }
-                
+                .font(.title2)
+                .frame(width: 44, height: 44)
+                .background(
+                    Circle()
+                        .fill(Color.accentColor.opacity(0.1))
+                )
+                .overlay(
+                    Circle()
+                        .stroke(Color.accentColor.opacity(0.2), lineWidth: 1)
+                )
+            
+            VStack(alignment: .leading, spacing: 6) {
+                Text(chatTitle)
+                    .font(.headline)
+                    .foregroundColor(.primary)
                 
                 Text(message)
-                    .foregroundColor(Color.primary.opacity(0.5))
-                    .font(.footnote)
-                    .opacity(0.6)
-                    .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
-                
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
             }
         }
-//        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
-        
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemBackground))
+                .shadow(
+                    color: .black.opacity(0.05),
+                    radius: 8,
+                    x: 0,
+                    y: 2
+                )
+        )
     }
 }

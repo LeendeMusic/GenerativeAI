@@ -150,102 +150,56 @@ struct DocsView: View {
     var body: some View {
         //        ZStack{
         //            Color("color_bg").edgesIgnoringSafeArea(.all)
-        GroupBox(label:
-                 Text("Documents for RAG")
-        ) {
-            HStack{
-                Spacer()
-                Button {
-                    Task {
-                        isImporting.toggle()
+        GroupBox(label: Text("Documents for RAG")) {
+            VStack {
+                if docsPreviews.isEmpty {
+                    VStack(spacing: 16) {
+                        Button {
+                            Task {
+                                isImporting.toggle()
+                            }
+                        } label: {
+                            VStack(spacing: 12) {
+                                Image(systemName: "plus.square.dashed")
+                                    .font(.system(size: 40))
+                                    .foregroundColor(.secondary)
+                                
+                                Text("Add Documents")
+                                    .font(.headline)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .buttonStyle(.borderless)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.secondary.opacity(0.2), lineWidth: 2)
+                                .background(Color.secondary.opacity(0.05))
+                        )
+                        .padding()
+                    }
+                } else {
+                    HStack {
+                        Spacer()
+                        Button {
+                            Task {
+                                isImporting.toggle()
+                            }
+                        } label: {
+                            Image(systemName: addButtonIcon)
+                                .font(.title2)
+                                .foregroundColor(.accentColor)
+                                .frame(width: 40, height: 40)
+                                .background(
+                                    Circle()
+                                        .fill(Color.accentColor.opacity(0.1))
+                                )
+                        }
+                        .buttonStyle(.borderless)
+                        .padding([.top, .trailing])
                     }
                     
-                } label: {
-                    Image(systemName: addButtonIcon)
-                    //                            .foregroundColor(Color("color_primary"))
-                        .font(.title2)
-                }
-                .buttonStyle(.borderless)
-                .frame(alignment: .trailing)
-                .padding([.top,.trailing])
-                //                .controlSize(.large)
-                .fileImporter(
-                    isPresented: $isImporting,
-                    allowedContentTypes: [.data, .directory],
-                    allowsMultipleSelection: true
-                ) { result in
-                    Task {
-                        do {
-                            let selectedFiles = try result.get()
-                            importStatus = ""
-                            isIndexUpdatePopoverPresented = true
-                            var importedCount = 0
-                            
-                            for selectedFile in selectedFiles {
-                                let isDirectory = try selectedFile.resourceValues(forKeys: [.isDirectoryKey]).isDirectory ?? false
-                                
-                                if isDirectory {
-                                    importStatus = "インポート中: \(selectedFile.lastPathComponent)内のファイル"
-                                    let fileManager = FileManager.default
-                                    let files = try fileManager.contentsOfDirectory(at: selectedFile, includingPropertiesForKeys: nil)
-                                    
-                                    for file in files {
-                                        let ext = "." + file.pathExtension.lowercased()
-                                        if targetExts.contains(where: { $0.lowercased() == ext }) {
-                                            importStatus = "コピー中: \(file.lastPathComponent)"
-                                            _ = CopyFileToSandbox(url: file, dest: dir)
-                                            
-                                            importStatus = "インデックス追加中: \(file.lastPathComponent)"
-                                            await addFileToIndex(fileURL: file, 
-                                                              ragURL: ragUrl,
-                                                              currentModel: currentModel,
-                                                              comparisonAlgorithm: comparisonAlgorithm,
-                                                              chunkMethod: chunkMethod)
-                                            importedCount += 1
-                                        }
-                                    }
-                                } else {
-                                    let ext = "." + selectedFile.pathExtension.lowercased()
-                                    if targetExts.contains(where: { $0.lowercased() == ext }) {
-                                        importStatus = "コピー中: \(selectedFile.lastPathComponent)"
-                                        _ = CopyFileToSandbox(url: selectedFile, dest: dir)
-                                        
-                                        importStatus = "インデックス追加中: \(selectedFile.lastPathComponent)"
-                                        await addFileToIndex(fileURL: selectedFile, 
-                                                          ragURL: ragUrl,
-                                                          currentModel: currentModel,
-                                                          comparisonAlgorithm: comparisonAlgorithm,
-                                                          chunkMethod: chunkMethod)
-                                        importedCount += 1
-                                    } else {
-                                        importStatus = "サポートされていない形式: \(selectedFile.lastPathComponent)"
-                                        try await Task.sleep(nanoseconds: 1_500_000_000) // 1.5秒待機
-                                        continue
-                                    }
-                                }
-                            }
-                            
-                            if importedCount > 0 {
-                                modelImported = true
-                                addButtonIcon = "checkmark"
-                                delayIconChange()
-                                docsPreviews = getFileListByExts(dir: dir, exts: targetExts) ?? []
-                                importStatus = "インポート完了"
-                                try await Task.sleep(nanoseconds: 1_000_000_000) // 1秒待機
-                            }
-                            
-                            isIndexUpdatePopoverPresented = false
-                            
-                        } catch {
-                            print("Unable to read file contents")
-                            print(error.localizedDescription)
-                        }
-                    }
-                }
-            }
-            VStack{
-//                VStack(spacing: 5){
-                    List(selection: $docSelection){
+                    List(selection: $docSelection) {
                         ForEach(docsPreviews, id: \.self) { model in
                             ModelInfoItem(
                                 modelIcon: String(describing: model["icon"]!),
@@ -253,70 +207,109 @@ struct DocsView: View {
                                 orig_file_name: String(describing: model["file_name"]!),
                                 size: String(describing: model["size"]!),
                                 date: String(describing: model["date"]!)
-                            ).contextMenu {
+                            )
+                            .contextMenu {
                                 Button(action: {
                                     delete(at: model)
-                                }){
+                                }) {
                                     Text("Delete")
                                 }
                             }
                         }
                         .onDelete(perform: delete)
-                        .listRowBackground(Color.gray.opacity(0))
-                        
+                        .listRowBackground(Color.clear)
                     }
                     .scrollContentBackground(.hidden)
-                    
-                    .onAppear {
-                        docsPreviews = getFileListByExts(dir:dir,exts:targetExts)  ?? []
-                    }
-#if os(macOS)
+                    #if os(macOS)
                     .listStyle(.sidebar)
-#else
+                    #else
                     .listStyle(InsetListStyle())
-#endif
-//                }
-                if  docsPreviews.count <= 0 {
-                    VStack{
-                        
-                        Button {
-                            Task {
-                                isImporting.toggle()
-                            }
-                        } label: {
-                            Image(systemName: "plus.square.dashed")
-                                .foregroundColor(.secondary)
-                                .font(.system(size: 40))
-                        }
-                        .buttonStyle(.borderless)
-                        .controlSize(.large)
-                        Text("Add file")
-                            .font(.title3)
-                            .frame(maxWidth: .infinity)
-                        
-                    }.opacity(0.4)
-                        .frame(maxWidth: .infinity,alignment: .center)
+                    #endif
                 }
-                
             }
-            .frame(maxHeight: .infinity)
+        }
+        .fileImporter(
+            isPresented: $isImporting,
+            allowedContentTypes: [.data, .directory],
+            allowsMultipleSelection: true
+        ) { result in
+            Task {
+                do {
+                    let selectedFiles = try result.get()
+                    importStatus = ""
+                    isIndexUpdatePopoverPresented = true
+                    var importedCount = 0
+                    
+                    for selectedFile in selectedFiles {
+                        let isDirectory = try selectedFile.resourceValues(forKeys: [.isDirectoryKey]).isDirectory ?? false
+                        
+                        if isDirectory {
+                            importStatus = "インポート中: \(selectedFile.lastPathComponent)内のファイル"
+                            let fileManager = FileManager.default
+                            let files = try fileManager.contentsOfDirectory(at: selectedFile, includingPropertiesForKeys: nil)
+                            
+                            for file in files {
+                                let ext = "." + file.pathExtension.lowercased()
+                                if targetExts.contains(where: { $0.lowercased() == ext }) {
+                                    importStatus = "コピー中: \(file.lastPathComponent)"
+                                    _ = CopyFileToSandbox(url: file, dest: dir)
+                                    
+                                    importStatus = "インデックス追加中: \(file.lastPathComponent)"
+                                    await addFileToIndex(fileURL: file, 
+                                                      ragURL: ragUrl,
+                                                      currentModel: currentModel,
+                                                      comparisonAlgorithm: comparisonAlgorithm,
+                                                      chunkMethod: chunkMethod)
+                                    importedCount += 1
+                                }
+                            }
+                        } else {
+                            let ext = "." + selectedFile.pathExtension.lowercased()
+                            if targetExts.contains(where: { $0.lowercased() == ext }) {
+                                importStatus = "コピー中: \(selectedFile.lastPathComponent)"
+                                _ = CopyFileToSandbox(url: selectedFile, dest: dir)
+                                
+                                importStatus = "インデックス追加中: \(selectedFile.lastPathComponent)"
+                                await addFileToIndex(fileURL: selectedFile, 
+                                                  ragURL: ragUrl,
+                                                  currentModel: currentModel,
+                                                  comparisonAlgorithm: comparisonAlgorithm,
+                                                  chunkMethod: chunkMethod)
+                                importedCount += 1
+                            } else {
+                                importStatus = "サポートされていない形式: \(selectedFile.lastPathComponent)"
+                                try await Task.sleep(nanoseconds: 1_500_000_000) // 1.5秒待機
+                                continue
+                            }
+                        }
+                    }
+                    
+                    if importedCount > 0 {
+                        modelImported = true
+                        addButtonIcon = "checkmark"
+                        delayIconChange()
+                        docsPreviews = getFileListByExts(dir: dir, exts: targetExts) ?? []
+                        importStatus = "インポート完了"
+                        try await Task.sleep(nanoseconds: 1_000_000_000) // 1秒待機
+                    }
+                    
+                    isIndexUpdatePopoverPresented = false
+                    
+                } catch {
+                    print("Unable to read file contents")
+                    print(error.localizedDescription)
+                }
+            }
         }
         .sheet(isPresented: $isIndexUpdatePopoverPresented) {
-            indexUpdatePopoverContent(importStatus: $importStatus)/*(selection: $selectedEmoji)*/
+            indexUpdatePopoverContent(importStatus: $importStatus)
                 .presentationDetents([.height(200)])
-//                .presentationCompactAdaptation(.sheet)
         }
         
-//        .padding(.horizontal,10)
-//        .toolbar{
-//
-//        }
-        //        .navigationTitle(dir)
         .onChange(of:dir){ dir in
             docsPreviews = getFileListByExts(dir:dir,exts:targetExts)  ?? []
         }
     }
-//    }
 }
 
 //struct ContactsView_Previews: PreviewProvider {

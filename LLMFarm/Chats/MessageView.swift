@@ -139,11 +139,19 @@ struct MessageView: View {
                 SenderView(sender: message.sender)
                 MessageContentView(message: message, 
                                    chatStyle: $chatStyle,
-                                   status:$status,
+                                   status: $status,
                                    sender: message.sender)
-                    .padding(12.0)
-                    .background(Color.secondary.opacity(0.2))
-                    .cornerRadius(12.0)
+                    .padding(14.0)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.secondary.opacity(0.15))
+                            .shadow(
+                                color: .black.opacity(0.05),
+                                radius: 5,
+                                x: 0,
+                                y: 2
+                            )
+                    )
             }
 
             if message.sender == .system {

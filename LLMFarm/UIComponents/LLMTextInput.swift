@@ -130,22 +130,25 @@ public struct LLMTextInput: View {
             .zIndex(1)
             
             TextField(messagePlaceholder, text: $input_text, axis: .vertical)
+                .textFieldStyle(.plain)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color(.systemBackground))
+                        .shadow(
+                            color: .black.opacity(0.08),
+                            radius: 8,
+                            x: 0,
+                            y: 2
+                        )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.accentColor.opacity(0.15))
+                )
                 .onSubmit {
                     sendMessageButtonPressed(img_path:imgCahcePath)
-                }
-                .textFieldStyle(.plain)
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 10)
-                .padding(.leading, 0) // プラスボタンとの重なりを避けるためのパディング
-                .background {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color(.systemBackground))
-                        .shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 1)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.accentColor.opacity(0.2), lineWidth: 1)
-                        )
                 }
                 .focused(focusedField, equals: .msg)
                 .lineLimit(1...5)

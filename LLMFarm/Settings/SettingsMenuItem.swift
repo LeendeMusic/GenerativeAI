@@ -15,26 +15,41 @@ struct SettingsMenuItem: View {
 
 
     var body: some View {
-        HStack{
-            Button(action: {
-                current_detail_view_name = name
-            }){
+        Button(action: {
+            current_detail_view_name = name
+        }) {
+            HStack(spacing: 14) {
                 Image(systemName: icon)
-                    .resizable()
-                    
-                    .frame(width: 40, height: 40)
-                VStack(alignment: .leading, spacing: 6){
-                    HStack{
-                        Text(name)
-                            .fontWeight(.semibold)
-                            .padding(.top, 3)
-                        Spacer()
-                    }
-                }
-                .padding(.horizontal, 10)
+                    .font(.system(size: 20))
+                    .foregroundColor(.accentColor)
+                    .frame(width: 36, height: 36)
+                    .background(
+                        Circle()
+                            .fill(Color.accentColor.opacity(0.1))
+                    )
+                
+                Text(name)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.secondary)
             }
-            
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(.systemBackground))
+                    .shadow(
+                        color: .black.opacity(0.05),
+                        radius: 6,
+                        x: 0,
+                        y: 2
+                    )
+            )
         }
-        .background(Color.primary.opacity(0.05))
     }
 }
