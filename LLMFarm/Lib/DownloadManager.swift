@@ -195,8 +195,19 @@ final class DownloadManager: NSObject, ObservableObject, URLSessionDownloadDeleg
         let config = URLSessionConfiguration.background(withIdentifier: "com.LocalMind.modeldownload")
         config.sessionSendsLaunchEvents = true
         config.isDiscretionary = false
+        config.tlsMinimumSupportedProtocol = .tlsProtocol12
         
         let session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+        
+        // SSL証明書の検証を許可する
+        let trustPolicy = { (challenge: URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?) in
+            let trust = challenge.protectionSpace.serverTrust!
+            let credential = URLCredential(trust: trust)
+            return (.useCredential, credential)
+        }
+        
+        session.configuration.urlCredentialStorage = URLCredentialStorage.shared
+        
         let downloadTask = session.downloadTask(with: url)
         downloadTask.resume()
     }
