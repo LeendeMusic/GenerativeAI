@@ -147,11 +147,16 @@ public struct LLMTextInput: View {
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(Color.accentColor.opacity(0.15))
                 )
+                .submitLabel(.send)
                 .onSubmit {
-                    sendMessageButtonPressed(img_path:imgCahcePath)
+                    if !input_text.isEmpty {
+                        sendMessageButtonPressed(img_path:imgCahcePath)
+                    }
                 }
                 .focused(focusedField, equals: .msg)
                 .lineLimit(1...5)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
             
             Group {
                 sendButton
